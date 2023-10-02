@@ -18,6 +18,7 @@ export class UserInfoComponent  implements OnInit{
 
   @Output() onFavClicked:EventEmitter<UserInfoFavClicked> = new EventEmitter<UserInfoFavClicked>();
   @Output() onCardClicked:EventEmitter<void> = new EventEmitter<void>();
+  @Output() onDeleteClicked:EventEmitter<void> = new EventEmitter<void>();
   
   constructor(
     private router:Router
@@ -37,4 +38,8 @@ export class UserInfoComponent  implements OnInit{
     this.onCardClicked.emit();
   }
 
+  onDeleteClick(event:any){
+    this.onDeleteClicked.emit();
+    event.stopPropagation();
+  }
 }

@@ -43,3 +43,14 @@
     --max-width : 300px;
       
   }
+
+  ion-loading.custom-loading {
+    --backdrop-opacity:0;
+    --background: var(--ion-background-color);
+    --spinner-color: var(--ion-color-dark);
+    color: var(--ion-color-medium);
+    .loading-wrapper {
+        background: transparent;
+        box-shadow: none;
+      }
+  }
