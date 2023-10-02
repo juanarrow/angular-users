@@ -50,7 +50,7 @@ export class HomePage implements OnInit {
     const users = [...this._users.value];
     //buscamos el índice del usuario para modificar su propiedad fav
     var index = users.findIndex((_user)=>_user.id == user.id);
-    if(index)
+    if(index>=0)
       //actualizamos la propiedad fav con el valor que hemos recibido por el evento
       users[index].fav = event.fav??false; //en el caso de que fav sea undefined devolvemos falso.
     //notificamos un nuevo array de usuarios para que se renderice en la plantilla
