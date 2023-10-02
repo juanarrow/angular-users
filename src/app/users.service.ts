@@ -1,0 +1,87 @@
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { User } from './home/user';
+
+export class UserNotFoundException extends Error {
+  // . declare any additional properties or methods .
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UsersService {
+
+  private _users:BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
+  public users$:Observable<User[]> = this._users.asObservable();
+  
+  constructor() { 
+
+  }
+
+  public getAll():Observable<User[]>{
+    return new Observable(observer=>{
+      var users:User[] = [
+        {id: 1, name:"Juan A.", surname:"garcía gómez", age:46, fav:true},
+        {id: 2, name:"Alejandro", surname:"garcía gómez", age:45, fav:true},
+        {id: 3, name:"juan", surname:"garcía Valencia", age:4, fav:false},
+        {id: 4, name:"María del Mar", surname:"Valencia Valencia", age:46, fav:true},
+        {id: 5, name:"Lydia", surname:"garcía Robles", age:11, fav:false}
+      ];
+      this._users.next(users);
+      observer.next(users);
+      observer.complete();
+    });
+    
+  }
+
+  public getUser(id:number):Observable<User>{
+    return new Observable(observer=>{
+      var user = this._users.value.find(user=>user.id==id);
+      if(user)
+        observer.next(user);
+      else 
+        observer.error(new UserNotFoundException());
+      observer.complete();
+    })
+    
+  }
+
+  public updateUser(user:User):Observable<User>{
+    return new Observable(observer=>{
+      var _users = [...this._users.value];
+      var index = _users.findIndex(u=>u.id==user.id);
+      if(index<0)
+        observer.error(new UserNotFoundException());
+      else{
+        _users[index]=user;
+        observer.next(user);
+        this._users.next(_users);
+      }
+      observer.complete();
+    });
+    
+  }
+
+  public deleteUser(user:User):Observable<User>{
+    return new Observable(observer=>{
+      var _users = [...this._users.value];
+      var index = _users.findIndex(u=>u.id==user.id);
+      if(index<0)
+        observer.error(new UserNotFoundException());
+      else{
+        _users = [..._users.slice(0,index),..._users.slice(index+1)];
+        this._users.next(_users);
+        observer.next(user);
+      }
+      observer.complete();
+    });
+  }
+
+  public deleteAll():Observable<void>{
+    return new Observable(observer=>{
+      this._users.next([]);
+      observer.next();
+      observer.complete();
+    });
+  }
+}
