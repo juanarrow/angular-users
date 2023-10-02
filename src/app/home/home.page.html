@@ -13,8 +13,10 @@
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <ion-button (click)="welcome()">Ir a welcome</ion-button>
+  <div class="users-panel">
+    <app-user-info *ngFor="let user of users$ | async" [user]="user" (onCardClicked)="onCardClicked()" (onFavClicked)="onFavClicked(user, $event)"></app-user-info>
   </div>
+  
+  
 </ion-content>

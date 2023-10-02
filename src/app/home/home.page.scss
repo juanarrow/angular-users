@@ -25,3 +25,19 @@
 #container a {
   text-decoration: none;
 }
+
+.users-panel{
+  display:flex;
+  flex-wrap:wrap;
+  width:100%;
+  
+  app-user-info{
+    margin:10px;
+    width:300px;
+    height:300px; 
+  }
+}
+
+.custom-ion-toast{
+  --background:var(--ion-color-dark);
+}

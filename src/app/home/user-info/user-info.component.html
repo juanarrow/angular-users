@@ -1,0 +1,29 @@
+
+<ion-card button (click)="onCardClick()">
+  <ion-card-header>
+    <div style="display:flex;margin:10px;align-items:flex-end ">
+      <ion-avatar>
+        <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+      </ion-avatar>
+      <div class="ion-margin-start user-name" color="tertiary" >{{user?.name | titlecase}} {{user?.surname | uppercase | slice:0:1}}</div>
+      <ion-button class="fav-button" fill="clear" aria-label="Favorite" (click)="onFavClick($event)">
+        <ion-icon *ngIf="user?.fav" slot="icon-only"  color="danger" name="heart" aria-hidden="true"></ion-icon>
+        <ion-icon *ngIf="!user?.fav" slot="icon-only"  color="medium" name="heart-outline" aria-hidden="true"></ion-icon>
+      </ion-button>
+    </div>
+    
+    
+  </ion-card-header>
+  <ion-card-content>
+    <ion-item>
+      <ion-label>
+        <h3>Nombre</h3>
+        <ion-text color="medium" class="ion-margin-start">{{user?.name}}</ion-text>
+        <h3>Apellidos</h3>
+        <ion-text color="medium" class="ion-margin-start">{{user?.surname}}</ion-text>
+        <h3>Edad</h3>
+        <ion-text color="medium" class="ion-margin-start">{{user?.age}} años</ion-text>
+      </ion-label>
+    </ion-item>
+  </ion-card-content>
+</ion-card>

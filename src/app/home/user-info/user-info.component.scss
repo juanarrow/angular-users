@@ -1,0 +1,23 @@
+ion-card{
+    height:100%;
+}
+
+.fav-button{
+    position:absolute;
+    right:10px;
+    top:10px;
+}
+
+.user-name{
+  color:var(--ion-color-primary) !important;
+  font-size:24px !important;
+  line-height: 24px;
+  height:24px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  text-align:left;  
+  text-transform:capitalize;
+}
