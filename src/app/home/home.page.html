@@ -15,7 +15,7 @@
 
   <ion-button (click)="welcome()">Ir a welcome</ion-button>
   <div class="users-panel">
-    <app-user-info *ngFor="let user of users$ | async" [user]="user" (onCardClicked)="onCardClicked()" (onFavClicked)="onFavClicked(user, $event)"></app-user-info>
+    <app-user-info *ngFor="let user of users.users$ | async" [user]="user" (onCardClicked)="onCardClicked()" (onFavClicked)="onFavClicked(user, $event)"></app-user-info>
   </div>
   
   
