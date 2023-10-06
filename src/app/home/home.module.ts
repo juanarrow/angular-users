@@ -6,6 +6,9 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import { UserInfoComponent } from './user-info/user-info.component';
+import { FavsPipe } from './favs.pipe';
+import { MyUppercasePipe } from './myuppercase.pipe';
+import { HighlightDirective } from './highlight.directive';
 
 
 @NgModule({
@@ -16,6 +19,6 @@ import { UserInfoComponent } from './user-info/user-info.component';
     HomePageRoutingModule
   ],
   exports:[HomePage],
-  declarations: [HomePage, UserInfoComponent]
+  declarations: [HomePage, UserInfoComponent, FavsPipe, MyUppercasePipe, HighlightDirective]
 })
 export class HomePageModule {}

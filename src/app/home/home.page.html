@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header >
   <ion-toolbar>
     <ion-title>
       Blank
@@ -13,10 +13,11 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-button (click)="welcome()">Ir a welcome</ion-button>
+  <ion-button (click)="welcome()">{{"Ir al wellcome" | myuppercase}}</ion-button>
   <div class="users-panel">
     <app-user-info 
-      *ngFor="let user of users.users$ | async" 
+      appHighLight
+      *ngFor="let user of (users.users$ | async) | favs:(favs.favs$ | async)" 
       [user]="user" 
       (onCardClicked)="onCardClicked()" 
       (onFavClicked)="onFavClicked(user, $event)"

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from './user';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, zip } from 'rxjs';
 import { ToastController, ToastOptions } from '@ionic/angular';
 import { UserInfoFavClicked } from './user-info/user-info.component';
 import { UsersService } from '../users.service';
+import { FavouritesService } from '../favourites.service';
 
 
 @Component({
@@ -18,15 +19,16 @@ export class HomePage implements OnInit {
   constructor(
     private router:Router,
     private toast:ToastController,
-    public users:UsersService
+    public users:UsersService,
+    public favs:FavouritesService,
   ) {
   }
 
   ngOnInit(): void {
     this.loading = true;
-    this.users.getAll().subscribe(users=>{
+    zip(this.users.getAll(), this.favs.getAll()).subscribe(results=>{
       this.loading = false;
-    });
+    })
   }
 
   public welcome(){
@@ -35,13 +37,12 @@ export class HomePage implements OnInit {
 
 
   public onFavClicked(user:User, event:UserInfoFavClicked){
-    var _user:User = {...user};
-    _user.fav = event.fav??false; //en el caso de que fav sea undefined devolvemos falso.
-    this.users.updateUser(_user).subscribe(
-        {next: user=>{
+    var obs = (event?.fav)?this.favs.addFav(user.id):this.favs.deleteFav(user.id);
+    obs.subscribe({
+      next:_=>{
         //Notificamos con un Toast que se ha pulsado
         const options:ToastOptions = {
-          message:`User ${event.fav?'added':'removed'} ${event.fav?'to':'from'} favourites`, //mensaje del toast
+          message:`User ${event.fav?'added to':'removed from'} favourites`, //mensaje del toast
           duration:1000, // 1 segundo
           position:'bottom', // el toast se situa en la parte inferior
           color:'danger', // color del toast
@@ -49,11 +50,9 @@ export class HomePage implements OnInit {
         };
         //creamos el toast
         this.toast.create(options).then(toast=>toast.present());
-        },
-        error: err=>{
-          console.log(err);
-        }
-      });
+      },
+      error:err=>console.log(err)
+    });
   }
 
   public onDeleteClicked(user:User){
