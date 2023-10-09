@@ -10,4 +10,54 @@
       <ion-title size="large">welcome</ion-title>
     </ion-toolbar>
   </ion-header>
+  <div class="container">
+    <swiper #swiper
+      (swiper)="onSwiper($event)"
+      effect="coverflow"
+      [grabCursor]="true"
+      [centeredSlides]="true"
+      [loop]="false"
+      [slidesPerView]="'auto'"
+      [coverflowEffect]="{
+        rotate: 0,
+        stretch: 0,
+        depth: 400,
+        modifier: 2.5,
+      }"
+      [navigation]="{
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      }"
+      className="swiper_container"
+    >
+    <ng-template swiperSlide >
+      <img  (click)="onSlideClicked(0)" src="assets/imgs/img1.jpg" />
+    </ng-template>
+    <ng-template swiperSlide>
+      <img  (click)="onSlideClicked(1)" src="assets/imgs/img2.jpg" />
+    </ng-template>
+    <ng-template swiperSlide>
+      <img (click)="onSlideClicked(2)" src="assets/imgs/img3.jpg" />
+    </ng-template>
+    <ng-template swiperSlide>
+      <img (click)="onSlideClicked(3)" src="assets/imgs/img4.jpg" />
+    </ng-template>
+    <ng-template swiperSlide>
+      <img (click)="onSlideClicked(4)" src="assets/imgs/img5.jpg" />
+    </ng-template>
+    <ng-template swiperSlide>
+      <img (click)="onSlideClicked(5)" src="assets/imgs/img6.jpg" />
+    </ng-template>
+    <ng-template swiperSlide>
+      <img (click)="onSlideClicked(6)" src="assets/imgs/img7.jpg" />
+    </ng-template>
+    <ng-template swiperSlide>
+      <img (click)="onSlideClicked(7)" src="assets/imgs/img8.jpg" />
+    </ng-template>
+    
+      
+    </swiper>
+    <button class="swiper-button-next" (click)="slideNext()"></button>
+    <button class="swiper-button-prev" (click)="slidePrev()"></button>
+  </div>
 </ion-content>
