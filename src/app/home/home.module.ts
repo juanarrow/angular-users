@@ -5,10 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
-import { UserInfoComponent } from './user-info/user-info.component';
 import { FavsPipe } from './favs.pipe';
 import { MyUppercasePipe } from './myuppercase.pipe';
-import { HighlightDirective } from './highlight.directive';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -16,9 +15,10 @@ import { HighlightDirective } from './highlight.directive';
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    SharedModule
   ],
   exports:[HomePage],
-  declarations: [HomePage, UserInfoComponent, FavsPipe, MyUppercasePipe, HighlightDirective]
+  declarations: [HomePage, FavsPipe, MyUppercasePipe]
 })
 export class HomePageModule {}

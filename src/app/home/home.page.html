@@ -17,13 +17,13 @@
   <div class="users-panel">
     <app-user-info 
       appHighLight
-      *ngFor="let user of (users.users$ | async) | favs:(favs.favs$ | async)" 
+      *ngFor="let user of ((users.users$ | async) | favs:(favs.favs$ | async));let i = index" 
       [user]="user" 
-      (onCardClicked)="onCardClicked()" 
+      (onCardClicked)="onCardClicked(i)" 
       (onFavClicked)="onFavClicked(user, $event)"
       (onDeleteClicked)="onDeleteClicked(user)"
-    >
-  </app-user-info>
+      >
+    </app-user-info>
   </div>
   <ion-loading [isOpen]="loading" class="custom-loading"  message="Loading..." ></ion-loading>
   

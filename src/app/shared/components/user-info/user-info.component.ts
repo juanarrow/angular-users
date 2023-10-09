@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { User } from '../user';
+import { User } from '../../../home/user';
 import { Router } from '@angular/router';
 
 export interface UserInfoFavClicked{

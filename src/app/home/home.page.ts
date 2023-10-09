@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from './user';
-import { BehaviorSubject, Observable, zip } from 'rxjs';
+import { zip } from 'rxjs';
 import { ToastController, ToastOptions } from '@ionic/angular';
-import { UserInfoFavClicked } from './user-info/user-info.component';
+import { UserInfoFavClicked } from '../shared/components/user-info/user-info.component';
 import { UsersService } from '../users.service';
 import { FavouritesService } from '../favourites.service';
 
@@ -77,7 +77,7 @@ export class HomePage implements OnInit {
       });
   }
 
-  public async onCardClicked(){
+  public async onCardClicked(index:number){
     const options:ToastOptions = {
       message:"User clicked the card",
       duration:1000,
