@@ -13,7 +13,9 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-button (click)="welcome()">{{"Ir al wellcome" | myuppercase}}</ion-button>
+  <ion-button fill="clear" aria-label="New User" (click)="onNewUser($event)">
+    <ion-icon slot="icon-only"  color="primary"  name="add-outline" aria-hidden="true"></ion-icon>
+  </ion-button>
   <div class="users-panel">
     <app-user-info 
       appHighLight

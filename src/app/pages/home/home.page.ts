@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from './user';
+import { User } from '../../core/interfaces/user';
 import { zip } from 'rxjs';
-import { ToastController, ToastOptions } from '@ionic/angular';
-import { UserInfoFavClicked } from '../shared/components/user-info/user-info.component';
-import { UsersService } from '../users.service';
-import { FavouritesService } from '../favourites.service';
+import { ModalController, ToastController, ToastOptions } from '@ionic/angular';
+import { UserInfoFavClicked } from '../../shared/components/user-info/user-info.component';
+import { FavouritesService } from '../../core/services/favourites.service';
+import { UsersService } from 'src/app/core/services/users.service';
+import { UserFormComponent } from 'src/app/shared/components/userform/userform.component';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class HomePage implements OnInit {
     private toast:ToastController,
     public users:UsersService,
     public favs:FavouritesService,
+    private modal:ModalController
   ) {
   }
 
@@ -88,5 +90,31 @@ export class HomePage implements OnInit {
     const toast = await this.toast.create(options);
     toast.present();
   }
+
+  
+  async presentForm(onDismiss:(result:any)=>void){
+    
+    const modal = await this.modal.create({
+      component:UserFormComponent,
+      componentProps:{
+
+      },
+      cssClass:"modal-full-right-side"
+    });
+    modal.present();
+    modal.onDidDismiss().then(result=>{
+      if(result && result.data){
+        onDismiss(result.data);
+      }
+    });
+  }
+
+  onNewUser(newUser:any){
+    var onDismiss = (data:any)=>{
+      console.log(data);
+    }
+    this.presentForm(onDismiss);
+  }
+  
 
 }

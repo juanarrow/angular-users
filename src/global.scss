@@ -199,3 +199,10 @@
   .swiper-pagination .swiper-pagination-bullet-active {
     background: var(--primary);
   }
+
+  .modal-full-right-side{
+    display:flex;
+    --height:100%;
+    justify-content: flex-end;
+    --max-width:350px;
+}

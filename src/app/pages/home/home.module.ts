@@ -5,20 +5,16 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
-import { FavsPipe } from './favs.pipe';
 import { MyUppercasePipe } from './myuppercase.pipe';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    HomePageRoutingModule,
-    SharedModule
+    SharedModule,
+    HomePageRoutingModule
   ],
   exports:[HomePage],
-  declarations: [HomePage, FavsPipe, MyUppercasePipe]
+  declarations: [HomePage, MyUppercasePipe]
 })
 export class HomePageModule {}

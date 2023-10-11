@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { User } from './home/user';
-import { Fav } from './home/fav';
+import { User } from '../interfaces/user';
+import { Fav } from '../interfaces/fav';
 import { UserNotFoundException } from './users.service';
 
 
