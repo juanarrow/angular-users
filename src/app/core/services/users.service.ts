@@ -15,9 +15,22 @@ export class UsersService {
 
   private _users:BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
   public users$:Observable<User[]> = this._users.asObservable();
-  
+  private id:number = 0;
   constructor() { 
 
+  }
+
+  public addUser(user:User):Observable<User>{
+    return new Observable(observer=>{
+      setTimeout(() => {
+        user.id = ++this.id;
+        var _users = [...this._users.value];
+        _users.push(user);
+        this._users.next(_users);
+        observer.next(user);
+        observer.complete();  
+      }, 1000);
+    }); 
   }
 
   public getAll():Observable<User[]>{
@@ -30,6 +43,7 @@ export class UsersService {
           {id: 4, name:"María del Mar", surname:"Valencia Valencia", age:46, fav:true},
           {id: 5, name:"Lydia", surname:"garcía Robles", age:11, fav:false}
         ];
+        this.id = 5;
         this._users.next(users);
         observer.next(users);
         observer.complete();  

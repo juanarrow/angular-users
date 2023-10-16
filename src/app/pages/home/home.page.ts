@@ -6,7 +6,7 @@ import { ModalController, ToastController, ToastOptions } from '@ionic/angular';
 import { UserInfoFavClicked } from '../../shared/components/user-info/user-info.component';
 import { FavouritesService } from '../../core/services/favourites.service';
 import { UsersService } from 'src/app/core/services/users.service';
-import { UserFormComponent } from 'src/app/shared/components/userform/userform.component';
+import { UserDetailComponent } from 'src/app/shared/components/user-detail/user-detail.component';
 
 
 @Component({
@@ -79,25 +79,30 @@ export class HomePage implements OnInit {
       });
   }
 
-  public async onCardClicked(index:number){
-    const options:ToastOptions = {
-      message:"User clicked the card",
-      duration:1000,
-      position:'bottom',
-      color:'tertiary',
-      cssClass:'card-ion-toast'
-    };
-    const toast = await this.toast.create(options);
-    toast.present();
+  public async onCardClicked(user:User){
+    var onDismiss = (data:any)=>{
+      this.users.updateUser(data).subscribe(async(user)=>{
+        const options:ToastOptions = {
+          message:`User correctly ${data.id?"modified":"created"}`,
+          duration:1000,
+          position:'bottom',
+          color:'tertiary',
+          cssClass:'card-ion-toast'
+        };
+        const toast = await this.toast.create(options);
+        toast.present();
+      });
+    }
+    this.presentForm(user, onDismiss);
   }
 
   
-  async presentForm(onDismiss:(result:any)=>void){
+  async presentForm(data:User|null, onDismiss:(result:any)=>void){
     
     const modal = await this.modal.create({
-      component:UserFormComponent,
+      component:UserDetailComponent,
       componentProps:{
-
+        user:data
       },
       cssClass:"modal-full-right-side"
     });
@@ -109,11 +114,21 @@ export class HomePage implements OnInit {
     });
   }
 
-  onNewUser(newUser:any){
+  onNewUser(){
     var onDismiss = (data:any)=>{
-      console.log(data);
+      this.users.addUser(data).subscribe(async(user)=>{
+        const options:ToastOptions = {
+          message:`User correctly ${data.id?"modified":"created"}`,
+          duration:1000,
+          position:'bottom',
+          color:'tertiary',
+          cssClass:'card-ion-toast'
+        };
+        const toast = await this.toast.create(options);
+        toast.present();
+      });
     }
-    this.presentForm(onDismiss);
+    this.presentForm(null, onDismiss);
   }
   
 

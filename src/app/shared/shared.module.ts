@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { IonicModule } from '@ionic/angular';
 import { HighlightDirective } from './directives/highlight.directive';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FavsPipe } from './pipes/favs.pipe';
-import { UserFormComponent } from './components/userform/userform.component';
+import { UserDetailComponent } from './components/user-detail/user-detail.component';
 
 
 
@@ -17,11 +17,12 @@ import { UserFormComponent } from './components/userform/userform.component';
     FavsPipe,
     //Components
     UserInfoComponent,
-    UserFormComponent],
+    UserDetailComponent],
   imports: [
     CommonModule,
     IonicModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports:[
     CommonModule, 
@@ -33,7 +34,7 @@ import { UserFormComponent } from './components/userform/userform.component';
     FavsPipe,
     //Components
     UserInfoComponent,
-    UserFormComponent
+    UserDetailComponent
   ]
 })
 export class SharedModule { }
