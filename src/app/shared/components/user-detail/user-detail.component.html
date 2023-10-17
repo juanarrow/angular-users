@@ -17,7 +17,7 @@
   
 </ion-header>
 <ion-content class="ion-padding">
-  <form >
+  <form [formGroup]="form" (submit)="onSubmit()" (key.Enter)>
     <ion-item>
      
       <ion-input label="Nombre" labelPlacement="start" formControlName="name" type="text"></ion-input>
