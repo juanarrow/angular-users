@@ -6,7 +6,7 @@ import { ModalController, ToastController, ToastOptions } from '@ionic/angular';
 import { UserInfoFavClicked } from '../../shared/components/user-info/user-info.component';
 import { FavouritesService } from '../../core/services/favourites.service';
 import { UsersService } from 'src/app/core/services/users.service';
-import { UserFormComponent } from 'src/app/shared/components/userform/userform.component';
+import { UserDetailComponent } from 'src/app/shared/components/user-detail/user-detail.component';
 
 
 @Component({
@@ -92,12 +92,13 @@ export class HomePage implements OnInit {
   }
 
   
-  async presentForm(onDismiss:(result:any)=>void){
+  async presentForm(data:User|null, onDismiss:(result:any)=>void){
     
     const modal = await this.modal.create({
-      component:UserFormComponent,
+      component:UserDetailComponent,
       componentProps:{
-
+        mode:data?'Edit':'New',
+        user:data
       },
       cssClass:"modal-full-right-side"
     });
@@ -109,11 +110,11 @@ export class HomePage implements OnInit {
     });
   }
 
-  onNewUser(newUser:any){
+  onNewUser(){
     var onDismiss = (data:any)=>{
       console.log(data);
     }
-    this.presentForm(onDismiss);
+    this.presentForm({id:1, name:'Juan', surname:"garcía", age:40}, onDismiss);
   }
   
 
