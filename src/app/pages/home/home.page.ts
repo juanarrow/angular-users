@@ -79,16 +79,45 @@ export class HomePage implements OnInit {
       });
   }
 
-  public async onCardClicked(index:number){
-    const options:ToastOptions = {
-      message:"User clicked the card",
-      duration:1000,
-      position:'bottom',
-      color:'tertiary',
-      cssClass:'card-ion-toast'
-    };
-    const toast = await this.toast.create(options);
-    toast.present();
+  public async onCardClicked(user:User){
+    
+    var onDismiss = (info:any)=>{
+      console.log(info);
+      switch(info.role){
+        case 'ok':{
+          this.users.updateUser(info.data).subscribe(async user=>{
+              const options:ToastOptions = {
+              message:"User modified",
+              duration:1000,
+              position:'bottom',
+              color:'tertiary',
+              cssClass:'card-ion-toast'
+            };
+            const toast = await this.toast.create(options);
+            toast.present();
+          })
+        }
+        break;
+        case 'delete':{
+          this.users.deleteUser(info.data).subscribe(async user=>{
+            const options:ToastOptions = {
+            message:"User deleted",
+            duration:1000,
+            position:'bottom',
+            color:'tertiary',
+            cssClass:'card-ion-toast'
+          };
+          const toast = await this.toast.create(options);
+          toast.present();
+        })
+        }
+        break;
+        default:{
+          console.error("No debería entrar");
+        }
+      }
+    }
+    this.presentForm(user, onDismiss);
   }
 
   
@@ -97,7 +126,6 @@ export class HomePage implements OnInit {
     const modal = await this.modal.create({
       component:UserDetailComponent,
       componentProps:{
-        mode:data?'Edit':'New',
         user:data
       },
       cssClass:"modal-full-right-side"
@@ -105,16 +133,35 @@ export class HomePage implements OnInit {
     modal.present();
     modal.onDidDismiss().then(result=>{
       if(result && result.data){
-        onDismiss(result.data);
+        onDismiss(result);
       }
     });
   }
 
   onNewUser(){
-    var onDismiss = (data:any)=>{
-      console.log(data);
+    var onDismiss = (info:any)=>{
+      console.log(info);
+      switch(info.role){
+        case 'ok':{
+          this.users.addUser(info.data).subscribe(async user=>{
+              const options:ToastOptions = {
+              message:"User created",
+              duration:1000,
+              position:'bottom',
+              color:'tertiary',
+              cssClass:'card-ion-toast'
+            };
+            const toast = await this.toast.create(options);
+            toast.present();
+          })
+        }
+        break;
+        default:{
+          console.error("No debería entrar");
+        }
+      }
     }
-    this.presentForm({id:1, name:'Juan', surname:"garcía", age:40}, onDismiss);
+    this.presentForm(null, onDismiss);
   }
   
 

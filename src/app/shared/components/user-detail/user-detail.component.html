@@ -17,9 +17,8 @@
   
 </ion-header>
 <ion-content class="ion-padding">
-  <form [formGroup]="form" (submit)="onSubmit()" (key.Enter)>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
     <ion-item>
-     
       <ion-input label="Nombre" labelPlacement="start" formControlName="name" type="text"></ion-input>
     </ion-item>
     <ion-item>
@@ -31,5 +30,5 @@
   </form>
 </ion-content>
 <ion-footer>
-  <ion-button disabled="!form.valid || !form.dirty" class="ion-padding" expand="full" (click)="onSubmit()">{{(mode=='New'?'Crear':'Guardar')}}</ion-button>
+  <ion-button type="submit" [disabled]="!form.valid || !form.dirty" class="ion-padding" expand="full" (click)="onSubmit()">{{(mode=='New'?'Crear':'Guardar')}}</ion-button>
 </ion-footer>

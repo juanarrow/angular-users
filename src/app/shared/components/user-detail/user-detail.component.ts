@@ -11,9 +11,10 @@ import { User } from 'src/app/core/interfaces/user';
 export class UserDetailComponent  implements OnInit {
 
   form:FormGroup;
-  @Input() mode:'New'|'Edit' = 'New';
+  mode:'New'|'Edit' = 'New';
   @Input() set user(_user:User|null){
     if(_user){
+      this.mode = 'Edit';
       this.form.controls['id'].setValue(_user.id);
       this.form.controls['name'].setValue(_user.name);
       this.form.controls['surname'].setValue(_user.surname);
@@ -39,7 +40,7 @@ export class UserDetailComponent  implements OnInit {
   }
 
   onSubmit(){
-    this._modal.dismiss(this.form.value, 'cancel');
+    this._modal.dismiss(this.form.value, 'ok');
   } 
 
   onDelete(){

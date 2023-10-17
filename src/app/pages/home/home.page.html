@@ -21,7 +21,7 @@
       appHighLight
       *ngFor="let user of ((users.users$ | async) | favs:(favs.favs$ | async));let i = index" 
       [user]="user" 
-      (onCardClicked)="onCardClicked(i)" 
+      (onCardClicked)="onCardClicked(user)" 
       (onFavClicked)="onFavClicked(user, $event)"
       (onDeleteClicked)="onDeleteClicked(user)"
       >
