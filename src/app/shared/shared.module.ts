@@ -6,6 +6,8 @@ import { HighlightDirective } from './directives/highlight.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FavsPipe } from './pipes/favs.pipe';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
+import { RouterModule } from '@angular/router';
+import { PictureSelectableComponent } from './components/picture-selectable/picture-selectable.component';
 
 
 
@@ -17,12 +19,14 @@ import { UserDetailComponent } from './components/user-detail/user-detail.compon
     FavsPipe,
     //Components
     UserInfoComponent,
-    UserDetailComponent],
+    UserDetailComponent,
+    PictureSelectableComponent],
   imports: [
     CommonModule,
     IonicModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ],
   exports:[
     CommonModule, 

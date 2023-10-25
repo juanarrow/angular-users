@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { IonImg, IonModal, ModalController } from '@ionic/angular';
 import { User } from 'src/app/core/interfaces/user';
 
 @Component({
@@ -9,6 +9,7 @@ import { User } from 'src/app/core/interfaces/user';
   styleUrls: ['./user-detail.component.scss'],
 })
 export class UserDetailComponent  implements OnInit {
+
 
   form:FormGroup;
   mode:'New'|'Edit' = 'New';
@@ -27,6 +28,7 @@ export class UserDetailComponent  implements OnInit {
   ) { 
     this.form = this.formBuilder.group({
       id:[null],
+      picture:[''],
       name:['', [Validators.required]],
       surname:['', [Validators.required]],
       age:[0, [Validators.required]]
@@ -47,4 +49,5 @@ export class UserDetailComponent  implements OnInit {
     this._modal.dismiss(this.form.value, 'delete');
   }
 
+ 
 }

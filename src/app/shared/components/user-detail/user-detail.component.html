@@ -18,6 +18,7 @@
 </ion-header>
 <ion-content class="ion-padding">
   <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
+    <app-picture-selectable formControlName="picture"></app-picture-selectable>
     <ion-item>
       <ion-input label="Nombre" labelPlacement="start" formControlName="name" type="text"></ion-input>
     </ion-item>
@@ -28,6 +29,8 @@
       <ion-input label="Edad" labelPlacement="start" formControlName="age" type="number"></ion-input>
     </ion-item>
   </form>
+
+  
 </ion-content>
 <ion-footer>
   <ion-button type="submit" [disabled]="!form.valid || !form.dirty" class="ion-padding" expand="full" (click)="onSubmit()">{{(mode=='New'?'Crear':'Guardar')}}</ion-button>
