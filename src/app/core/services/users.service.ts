@@ -29,7 +29,8 @@ export class UsersService {
     var _user:any = {
       name: user.name,
       surname: user.surname,
-      age: user.age
+      age: user.age,
+      picture: user.picture
     }
    
     return this.http.post<User>(environment.apiUrl+"/users",_user).pipe(tap(_=>{
@@ -46,6 +47,11 @@ export class UsersService {
       }, 1000);
     })
     */
+  }
+
+  public query(q:string):Observable<User[]>{
+    // Si coincide el tipo de datos que recibo con mi interfaz
+    return this.http.get<User[]>(environment.apiUrl+'/users?q='+q);
   }
 
   public getAll():Observable<User[]>{
