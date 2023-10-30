@@ -8,6 +8,8 @@ import { FavsPipe } from './pipes/favs.pipe';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
 import { RouterModule } from '@angular/router';
 import { PictureSelectableComponent } from './components/picture-selectable/picture-selectable.component';
+import { UserItemComponent } from './components/user-item/user-item.component';
+import { UserSelectableComponent } from './components/user-selectable/user-selectable.component';
 
 
 
@@ -20,7 +22,9 @@ import { PictureSelectableComponent } from './components/picture-selectable/pict
     //Components
     UserInfoComponent,
     UserDetailComponent,
-    PictureSelectableComponent],
+    PictureSelectableComponent,
+    UserItemComponent,
+    UserSelectableComponent],
   imports: [
     CommonModule,
     IonicModule,
@@ -38,7 +42,9 @@ import { PictureSelectableComponent } from './components/picture-selectable/pict
     FavsPipe,
     //Components
     UserInfoComponent,
-    UserDetailComponent
+    UserDetailComponent,
+    UserItemComponent,
+    UserSelectableComponent
   ]
 })
 export class SharedModule { }

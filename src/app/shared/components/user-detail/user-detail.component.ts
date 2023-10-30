@@ -20,6 +20,7 @@ export class UserDetailComponent  implements OnInit {
       this.form.controls['name'].setValue(_user.name);
       this.form.controls['surname'].setValue(_user.surname);
       this.form.controls['age'].setValue(_user.age);
+      this.form.controls['picture'].setValue(_user.picture);
     }
   }
   constructor(

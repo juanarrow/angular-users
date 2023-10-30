@@ -10,7 +10,8 @@
   <ion-card-header>
     <div style="display:flex;margin:10px;align-items:flex-end ">
       <ion-avatar>
-        <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+        <img  *ngIf="!user || !user.picture" alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+        <img *ngIf="user && user.picture" alt="Silhouette of a person's head" [src]="user.picture" />
       </ion-avatar>
       <div class="ion-margin-start user-name" color="tertiary" >{{user?.name | titlecase}} {{user?.surname | uppercase | slice:0:1}}</div>
       

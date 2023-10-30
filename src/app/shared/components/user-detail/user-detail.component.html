@@ -18,16 +18,20 @@
 </ion-header>
 <ion-content class="ion-padding">
   <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
+    
     <app-picture-selectable formControlName="picture"></app-picture-selectable>
     <ion-item>
-      <ion-input label="Nombre" labelPlacement="start" formControlName="name" type="text"></ion-input>
+      <ion-input label="Nombre:" labelPlacement="start" formControlName="name" type="text"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input label="Apellidos" labelPlacement="start" formControlName="surname" type="text"></ion-input>
+      <ion-input label="Apellidos:" labelPlacement="start" formControlName="surname" type="text"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input label="Edad" labelPlacement="start" formControlName="age" type="number"></ion-input>
+      <ion-input label="Edad:" labelPlacement="start" formControlName="age" type="number"></ion-input>
     </ion-item>
+    <app-user-selectable
+      formControlName="id"
+    ></app-user-selectable>
   </form>
 
   
