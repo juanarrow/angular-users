@@ -40,8 +40,8 @@ export class UserSelectableComponent  implements OnInit, ControlValueAccessor {
     }
     else
       this.userSelected = undefined;
-    if(propagate)
-      this.propagateChange(this.userSelected);
+    if(propagate && this.userSelected)
+      this.propagateChange(this.userSelected.id);
   }
   
   writeValue(obj: any): void {
@@ -74,7 +74,7 @@ export class UserSelectableComponent  implements OnInit, ControlValueAccessor {
   }
 
   onUserClicked(popover:IonPopover, user:User){
-    this.selectUser(user.id);
+    this.selectUser(user.id, true);
     popover.dismiss();
   }
 
