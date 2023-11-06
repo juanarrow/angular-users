@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000'
+  apiJsonServer: 'http://localhost:3000',
+  apiUrl: 'http://localhost:1337/api',
+  mapsKey: "AIzaSyD858KjCuS38H4f-soOHBMVQqyZoFAr7k0"
 };
 
 /*

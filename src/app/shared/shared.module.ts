@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { PictureSelectableComponent } from './components/picture-selectable/picture-selectable.component';
 import { UserItemComponent } from './components/user-item/user-item.component';
 import { UserSelectableComponent } from './components/user-selectable/user-selectable.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
 
 
 
@@ -24,7 +25,8 @@ import { UserSelectableComponent } from './components/user-selectable/user-selec
     UserDetailComponent,
     PictureSelectableComponent,
     UserItemComponent,
-    UserSelectableComponent],
+    UserSelectableComponent,
+    LoginFormComponent],
   imports: [
     CommonModule,
     IonicModule,
@@ -44,7 +46,8 @@ import { UserSelectableComponent } from './components/user-selectable/user-selec
     UserInfoComponent,
     UserDetailComponent,
     UserItemComponent,
-    UserSelectableComponent
+    UserSelectableComponent,
+    LoginFormComponent
   ]
 })
 export class SharedModule { }

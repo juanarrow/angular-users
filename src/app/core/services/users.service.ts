@@ -33,7 +33,7 @@ export class UsersService {
       picture: user.picture
     }
    
-    return this.http.post<User>(environment.apiUrl+"/users",_user).pipe(tap(_=>{
+    return this.http.post<User>(environment.apiJsonServer+"/users",_user).pipe(tap(_=>{
       this.getAll().subscribe();
     }))
     /*
@@ -51,16 +51,16 @@ export class UsersService {
 
   public query(q:string):Observable<User[]>{
     // Si coincide el tipo de datos que recibo con mi interfaz
-    return this.http.get<User[]>(environment.apiUrl+'/users?q='+q);
+    return this.http.get<User[]>(environment.apiJsonServer+'/api/extended-users?q='+q);
   }
 
   public getAll():Observable<User[]>{
     // Si coincide el tipo de datos que recibo con mi interfaz
-    return this.http.get<User[]>(environment.apiUrl+'/users').pipe(tap((users:any[])=>{
+    return this.http.get<User[]>(environment.apiJsonServer+'/users').pipe(tap((users:any[])=>{
       this._users.next(users);}));
     /*
     //Si tenemos que hacer un mapeo
-    return this.http.get<User[]>(environment.apiUrl+'/users').pipe(map((users:any[])=>{
+    return this.http.get<User[]>(environment.apiJsonServer+'/users').pipe(map((users:any[])=>{
       return users.map((_user:any)=>{
         return {
           id:_user.id,
@@ -93,7 +93,7 @@ export class UsersService {
   }
 
   public getUser(id:number):Observable<User>{
-    return this.http.get<User>(environment.apiUrl+`/users/${id}`);
+    return this.http.get<User>(environment.apiJsonServer+`/users/${id}`);
     /*
     return new Observable(observer=>{
       setTimeout(() => {
@@ -113,7 +113,7 @@ export class UsersService {
   public updateUser(user:User):Observable<User>{
     
     return new Observable<User>(obs=>{
-      this.http.patch<User>(environment.apiUrl+`/users/${user.id}`,user).subscribe(_=>{
+      this.http.patch<User>(environment.apiJsonServer+`/users/${user.id}`,user).subscribe(_=>{
           this.getAll().subscribe(_=>{
             this.getUser(user.id).subscribe(_user=>{
               obs.next(_user);
@@ -141,7 +141,7 @@ export class UsersService {
 
   public deleteUser(user:User):Observable<User>{
     return new Observable<User>(obs=>{
-      this.http.delete<User>(environment.apiUrl+`/users/${user.id}`).subscribe(_=>{
+      this.http.delete<User>(environment.apiJsonServer+`/users/${user.id}`).subscribe(_=>{
           this.getAll().subscribe(_=>{
             obs.next(user);
           })})});

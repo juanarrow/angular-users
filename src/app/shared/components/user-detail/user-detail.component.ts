@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonImg, IonModal, ModalController } from '@ionic/angular';
 import { User } from 'src/app/core/interfaces/user';
+import { numericValidator } from '../../validators/numeric';
 
 @Component({
   selector: 'app-user-detail',

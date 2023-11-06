@@ -1,0 +1,25 @@
+<ion-content [fullscreen]="true">
+  
+  <div class="container">
+    <ion-card>
+      <ion-card-header>
+        <div class="logo">
+          <ion-thumbnail>
+            <img alt="logo of tasks" src="assets/imgs/logo-small.png" />
+          </ion-thumbnail>
+          <ion-text >Tasks</ion-text>
+        </div>
+        
+      </ion-card-header>
+      <ion-card-content>
+        <div class="ion-text-end">
+          <ion-button fill="clear" style="text-transform: none;">No tengo cuenta</ion-button>
+        </div>
+        <app-login-form (onsubmit)="onLogin($event)"></app-login-form>
+
+      </ion-card-content>
+    </ion-card>
+  </div>
+  
+  
+</ion-content>
