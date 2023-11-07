@@ -12,6 +12,7 @@ export class ApiService {
     private http:HttpClientProvider,
     private jwt:JwtService
   ) {
+    this.http.get
   }
   
   getHeader(url:string, accept = null, contentType=null){

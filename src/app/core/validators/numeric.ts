@@ -2,7 +2,7 @@ import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from '@an
 
 
 export class numericValidator{
-    public static numericProto(formControlName:string): ValidatorFn{
+    public static numericProto(formControlName:string=''): ValidatorFn{
         return (control: AbstractControl): ValidationErrors | null => {
             let value = '';
             if(control instanceof FormControl)

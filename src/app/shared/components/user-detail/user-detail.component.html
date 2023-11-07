@@ -29,6 +29,17 @@
     <ion-item>
       <ion-input label="Edad:" labelPlacement="start" formControlName="age" type="number"></ion-input>
     </ion-item>
+    <ion-item>
+      <ion-input label="Número:" labelPlacement="start" formControlName="myNumber" type="text"></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="hasError('myNumber','numeric')">*Debe introducir un número</ion-text>
+    <ion-text color="danger" *ngIf="hasError('myNumber','required')">*Este campo es obligatorio</ion-text>
+    <ion-item>
+      <ion-input label="Password:" labelPlacement="start" formControlName="password" type="password"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Confirm:" labelPlacement="start" formControlName="confirm" type="password"></ion-input>
+    </ion-item>
   </form>
 
   

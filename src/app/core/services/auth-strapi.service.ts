@@ -5,14 +5,11 @@ import { UserRegisterInfo } from '../interfaces/user-register-info';
 import { JwtService } from './jwt.service';
 import { ApiService } from './api.service';
 import { AuthService } from './auth.service';
-import { StrapiExtendedUser, StrapiLoginResponse, StrapiRegisterPayload, StrapiRegisterResponse, StrapiUser } from '../interfaces/strapi';
+import { StrapiExtendedUser, StrapiLoginPayload, StrapiLoginResponse, StrapiRegisterPayload, StrapiRegisterResponse, StrapiUser } from '../interfaces/strapi';
 import { User } from '../interfaces/user';
 
 
 
-@Injectable({
-  providedIn: 'root'
-})
 export class AuthStrapiService extends AuthService{
 
   constructor(
@@ -31,10 +28,10 @@ export class AuthStrapiService extends AuthService{
 
   public login(credentials:UserCredentials):Observable<void>{
     return new Observable<void>(obs=>{
-      const _credentials = {
+      const _credentials:StrapiLoginPayload = {
         identifier:credentials.username,
         password:credentials.password
-      }
+      };
       this.apiSvc.post("/auth/local", _credentials).subscribe({
         next:async (data:StrapiLoginResponse)=>{
           await lastValueFrom(this.jwtSvc.saveToken(data.jwt));

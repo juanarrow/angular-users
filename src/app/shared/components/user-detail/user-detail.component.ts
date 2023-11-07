@@ -2,7 +2,8 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IonImg, IonModal, ModalController } from '@ionic/angular';
 import { User } from 'src/app/core/interfaces/user';
-import { numericValidator } from '../../validators/numeric';
+import { numericValidator } from '../../../core/validators/numeric';
+import { PasswordValidation } from 'src/app/core/validators/password';
 
 @Component({
   selector: 'app-user-detail',
@@ -33,8 +34,11 @@ export class UserDetailComponent  implements OnInit {
       picture:[''],
       name:['', [Validators.required]],
       surname:['', [Validators.required]],
-      age:[0, [Validators.required]]
-    })
+      age:[0, [Validators.required]],
+      myNumber:['', [Validators.required, numericValidator.numericProto()]],
+      password:['', [Validators.required, PasswordValidation.passwordProto()]],
+      confirm:['', [Validators.required, PasswordValidation.passwordProto()]]
+    },{validator: [PasswordValidation.passwordMatch('password', 'confirm')]})
   }
 
   ngOnInit() {}
@@ -49,6 +53,12 @@ export class UserDetailComponent  implements OnInit {
 
   onDelete(){
     this._modal.dismiss(this.form.value, 'delete');
+  }
+
+  hasError(control:string, error:string):boolean{
+    let errors = this.form.controls[control].errors;
+    return errors!=null && error in errors;
+  
   }
 
  
