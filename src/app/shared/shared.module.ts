@@ -11,6 +11,10 @@ import { PictureSelectableComponent } from './components/picture-selectable/pict
 import { UserItemComponent } from './components/user-item/user-item.component';
 import { UserSelectableComponent } from './components/user-selectable/user-selectable.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
+import {TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { createTranslateLoader } from '../core/translate/translate';
+import { HttpClient } from '@angular/common/http';
+
 
 
 
@@ -32,7 +36,14 @@ import { LoginFormComponent } from './components/login-form/login-form.component
     IonicModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    TranslateModule.forChild({
+      loader: {
+      provide: TranslateLoader,
+      useFactory: (createTranslateLoader),
+      deps: [HttpClient]
+      }
+      }),
   ],
   exports:[
     CommonModule, 
@@ -47,7 +58,8 @@ import { LoginFormComponent } from './components/login-form/login-form.component
     UserDetailComponent,
     UserItemComponent,
     UserSelectableComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    TranslateModule
   ]
 })
 export class SharedModule { }

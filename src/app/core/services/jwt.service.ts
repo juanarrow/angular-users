@@ -16,15 +16,15 @@ export class JwtService {
       Preferences.get({key:'jwtToken'}).then((ret:any) => {
         if (ret['value']) {
           this.token = JSON.parse(ret.value);
-          if(this.token == '' || this.token == null) {
-            observer.error('No token');
-          } else {
+          if(this.token == '' || this.token == null)
+            observer.next('');
+          else 
             observer.next(this.token);
-            observer.complete();
-          }
+          observer.complete();
         }
         else {
-          observer.error('No token');
+          observer.next('');
+          observer.complete();
         }
       }).catch((error:any) => observer.next(error));
     });

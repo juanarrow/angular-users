@@ -13,9 +13,12 @@ import { AuthService } from './core/services/auth.service';
 import { ApiService } from './core/services/api.service';
 import { AuthStrapiService } from './core/services/auth-strapi.service';
 import { JwtService } from './core/services/jwt.service';
+import {TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { createTranslateLoader } from './core/translate/translate';
 
 export function httpProviderFactory(
-  http:HttpClient) {
+  http:HttpClient,
+  platform:Platform) {
   return new HttpClientWebProvider(http);
 }
 
@@ -32,7 +35,14 @@ export function AuthServiceProvider(
     BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    }),
     ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
@@ -46,6 +56,7 @@ export function AuthServiceProvider(
       deps: [JwtService, ApiService],
       useFactory: AuthServiceProvider,  
     }
+    
   ],
   bootstrap: [AppComponent],
 })

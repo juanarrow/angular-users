@@ -8,8 +8,6 @@ import { AuthService } from './auth.service';
 import { StrapiExtendedUser, StrapiLoginPayload, StrapiLoginResponse, StrapiRegisterPayload, StrapiRegisterResponse, StrapiUser } from '../interfaces/strapi';
 import { User } from '../interfaces/user';
 
-
-
 export class AuthStrapiService extends AuthService{
 
   constructor(
@@ -21,9 +19,16 @@ export class AuthStrapiService extends AuthService{
   }
 
   private init(){
-    this.jwtSvc.loadToken().subscribe(_=>{
-      this._logged.next(true);
-    });
+    this.jwtSvc.loadToken().subscribe(
+      {
+        next:(logged)=>{
+          this._logged.next(logged!='');
+        },
+        error:(err)=>{
+          console.log("No hay token");
+        }
+      }      
+    );
   }
 
   public login(credentials:UserCredentials):Observable<void>{
@@ -35,8 +40,7 @@ export class AuthStrapiService extends AuthService{
       this.apiSvc.post("/auth/local", _credentials).subscribe({
         next:async (data:StrapiLoginResponse)=>{
           await lastValueFrom(this.jwtSvc.saveToken(data.jwt));
-          let connected = data && data.jwt!='';
-          this._logged.next(connected);
+          this._logged.next(data && data.jwt!='');
           obs.next();
           obs.complete();
         },
@@ -49,6 +53,7 @@ export class AuthStrapiService extends AuthService{
 
   logout():Observable<void>{
     return this.jwtSvc.destroyToken().pipe(map(_=>{
+      this._logged.next(false);
       return;
     }));
   }
@@ -70,7 +75,7 @@ export class AuthStrapiService extends AuthService{
             surname:info.surname,
             user_id:data.user.id
           }
-          await lastValueFrom(this.apiSvc.post("/extended_user", _extended_user));
+          await lastValueFrom(this.apiSvc.post("/extended_user", _extended_user)).catch;
           obs.next();
           obs.complete();
         },

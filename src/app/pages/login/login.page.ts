@@ -21,7 +21,7 @@ export class LoginPage implements OnInit {
   onLogin(credentials:UserCredentials){
     this.auth.login(credentials).subscribe({
       next:data=>{
-        this.router.navigate(['home'])
+        
       },
       error:err=>{
         console.log(err);

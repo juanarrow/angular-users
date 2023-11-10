@@ -1,0 +1,14 @@
+{
+    "main":{
+        "hello":"Hello"
+    },
+    "login":{
+        "user":"User",
+        "pwd":"Password",
+        "noAccount":"Need an account?",
+        "submit":"Access"
+    },
+    "user-card":{
+        "name":"Name"
+    }
+}
