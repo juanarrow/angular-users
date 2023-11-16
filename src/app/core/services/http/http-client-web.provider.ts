@@ -8,7 +8,6 @@ import { Observable } from 'rxjs';
 // providers
 import { HttpClientProvider } from './http-client.provider';
 
-@Injectable({providedIn:'root'})
 export class HttpClientWebProvider extends HttpClientProvider {
 
     /**

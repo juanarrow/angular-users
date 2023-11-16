@@ -12,8 +12,9 @@ import { UserItemComponent } from './components/user-item/user-item.component';
 import { UserSelectableComponent } from './components/user-selectable/user-selectable.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import {TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { createTranslateLoader } from '../core/translate/translate';
 import { HttpClient } from '@angular/common/http';
+import { HeaderComponent } from './components/header/header.component';
+import { createTranslateLoader } from '../core/services/custom-translate.service';
 
 
 
@@ -30,7 +31,8 @@ import { HttpClient } from '@angular/common/http';
     PictureSelectableComponent,
     UserItemComponent,
     UserSelectableComponent,
-    LoginFormComponent],
+    LoginFormComponent,
+    HeaderComponent],
   imports: [
     CommonModule,
     IonicModule,
@@ -59,7 +61,8 @@ import { HttpClient } from '@angular/common/http';
     UserItemComponent,
     UserSelectableComponent,
     LoginFormComponent,
-    TranslateModule
+    TranslateModule,
+    HeaderComponent
   ]
 })
 export class SharedModule { }

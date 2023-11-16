@@ -2,8 +2,9 @@ import { Component, Input, OnDestroy, OnInit, ViewChild, forwardRef } from '@ang
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { IonInput, IonPopover } from '@ionic/angular';
 import { Subscription, last, lastValueFrom } from 'rxjs';
+import { Pagination } from 'src/app/core/interfaces/data';
 import { User } from 'src/app/core/interfaces/user';
-import { UsersService } from 'src/app/core/services/users.service';
+import { UsersService } from 'src/app/core/services/api/users.service';
 
 export const USER_SELECTABLE_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -22,6 +23,7 @@ export class UserSelectableComponent  implements OnInit, ControlValueAccessor {
   userSelected:User | undefined;
   disabled:boolean = true;
   users: User[] = [];
+  pagination:Pagination = {page:0, pageSize:0, pageCount:0, total:0};
 
   propagateChange = (obj: any) => {}
 
@@ -31,7 +33,13 @@ export class UserSelectableComponent  implements OnInit, ControlValueAccessor {
   }
   
   async onLoadUsers(){
-    this.users = await lastValueFrom(this.usersSvc.getAll());
+    this.loadUsers("");
+  }
+
+  private async loadUsers(filter:string){
+    const paginated_users = await lastValueFrom(this.usersSvc.query(filter));
+    this.pagination = paginated_users.pagination;
+    this.users = paginated_users.data;
   }
 
   private async selectUser(id:number|undefined, propagate:boolean=false){
@@ -63,10 +71,8 @@ export class UserSelectableComponent  implements OnInit, ControlValueAccessor {
 
   ngOnInit() {}
 
-  private async filter(value:string){
-    const query = value;
-    const users = await lastValueFrom(this.usersSvc.query(query))
-    this.users = users.filter(u=>u.name.toLowerCase().includes(query.toLowerCase())||u.surname.toLowerCase().includes(query.toLowerCase()));
+  private async filter(filtering:string){
+    this.loadUsers(filtering);
   }
 
   onFilter(evt:any){

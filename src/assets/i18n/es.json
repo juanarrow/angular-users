@@ -10,5 +10,23 @@
     },
     "user-card":{
         "name":"Nombre"
+    },
+    "header":{
+        "user":{
+            "profile":"Mi perfil",
+            "signout":"Cerrar sesión"
+        },
+        "languages":{
+            "es":"Español",
+            "en":"Inglés"
+        }
+    },
+    "menu":{
+        "home":"Inicio",
+        "tasks":"Tareas",
+        "assignments":"Asignaciones",
+        "signout":"Cerrar sesión",
+        "profile":"Mi perfil",
+        "about":"Acerca de Tasks"
     }
 }

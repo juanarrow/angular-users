@@ -21,8 +21,7 @@ export class UserDetailComponent  implements OnInit {
       this.form.controls['id'].setValue(_user.id);
       this.form.controls['name'].setValue(_user.name);
       this.form.controls['surname'].setValue(_user.surname);
-      this.form.controls['age'].setValue(_user.age);
-      this.form.controls['picture'].setValue(_user.picture);
+      this.form.controls['picture'].setValue(_user.picture?.url_medium);
     }
   }
   constructor(
@@ -34,11 +33,7 @@ export class UserDetailComponent  implements OnInit {
       picture:[''],
       name:['', [Validators.required]],
       surname:['', [Validators.required]],
-      age:[0, [Validators.required]],
-      myNumber:['', [Validators.required, numericValidator.numericProto()]],
-      password:['', [Validators.required, PasswordValidation.passwordProto()]],
-      confirm:['', [Validators.required, PasswordValidation.passwordProto()]]
-    },{validator: [PasswordValidation.passwordMatch('password', 'confirm')]})
+    })
   }
 
   ngOnInit() {}
@@ -47,8 +42,23 @@ export class UserDetailComponent  implements OnInit {
     this._modal.dismiss(null, 'cancel');
   }
 
+  getDirtyValues(form: FormGroup) {
+    let dirtyValues:any = {};
+
+    Object.keys(form.controls)
+        .forEach(key => {
+            let currentControl = form.controls[key];
+            if (currentControl.dirty)
+              dirtyValues[key] = currentControl.value;
+        });
+    if(this.mode=='Edit')
+        dirtyValues['id'] = this.form.controls['id'].value;
+    return dirtyValues;
+  }
+
   onSubmit(){
-    this._modal.dismiss(this.form.value, 'ok');
+
+    this._modal.dismiss(this.getDirtyValues(this.form), 'ok');
   } 
 
   onDelete(){

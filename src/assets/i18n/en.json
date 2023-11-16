@@ -10,5 +10,23 @@
     },
     "user-card":{
         "name":"Name"
+    },
+    "header":{
+        "user":{
+            "profile":"My profile",
+            "signout":"Sign out"
+        },
+        "languages":{
+            "es":"Spanish",
+            "en":"English"
+        }
+    },
+    "menu":{
+        "home":"Home",
+        "tasks":"Tasks",
+        "assignments":"Assignments",
+        "signout":"Sign out",
+        "profile":"My profile",
+        "about":"About Tasks"
     }
 }

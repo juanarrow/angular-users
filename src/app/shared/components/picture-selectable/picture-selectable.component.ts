@@ -82,7 +82,6 @@ export class PictureSelectableComponent  implements OnInit, ControlValueAccessor
   }
 
   close(){
-
     this.pictureModal?.dismiss();
   }
 

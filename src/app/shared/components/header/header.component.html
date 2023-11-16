@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button color="primary"></ion-menu-button>
+    </ion-buttons>
+    <div slot="end" class="user-info">
+      <ion-label>
+        <p class="username">
+          {{username}}
+        </p>
+        <p class="nickname">
+          {{nickname}}
+        </p>
+      </ion-label>
+      <ion-icon id="user-trigger" slot="end" size="large" color="primary" name="person-circle-outline"></ion-icon>
+    </div>
+    <ion-buttons slot="end">
+      <ion-button id="language-trigger" shape="round" color="primary" fill="outline">{{languageSelected | uppercase}}</ion-button>
+    </ion-buttons>
+    
+  </ion-toolbar>
+  <ion-popover trigger="language-trigger" triggeraction="click" aria-modal="true" [dismissOnSelect]="true">
+    <ng-template>
+      <ion-content>
+        <ion-list>
+          <ion-item [disabled]="language==languageSelected" *ngFor="let language of languages" [button]="true" (click)="setLanguage(language)" [detail]="false">{{language | uppercase}} - {{'header.languages.'+language | translate}}</ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+    </ion-popover>  
+  <ion-popover trigger="user-trigger" triggeraction="click" aria-modal="true" [dismissOnSelect]="true">
+    <ng-template>
+      <ion-content>
+        <ion-list>
+          <ion-item [button]="true" (click)="onProfile.emit()" [detail]="false"><ion-icon slot="start" name="person-outline"></ion-icon>{{'header.user.profile' | translate}}</ion-item>
+          <ion-item [button]="true" (click)="onSignout.emit()"[detail]="false"><ion-icon slot="start" name="exit-outline"></ion-icon>{{'header.user.signout' | translate}}</ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+    </ion-popover>  
+</ion-header>

@@ -1,11 +1,15 @@
+import { PaginatedData } from "./data";
+import { Media } from "./media";
+
 export interface User {
     id:number,
     name:string,
     surname:string,
-    age:number,
-    fav?:boolean,
-    picture?:string
+    nickname?:string
+    picture?:Media|null,
 }
+
+export type PaginatedUsers = PaginatedData<User>;
 
 
 

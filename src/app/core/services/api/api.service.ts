@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
-import { HttpClientProvider } from './http-client.provider';
-import { JwtService } from './jwt.service';
+import { HttpClientProvider } from '../http/http-client.provider';
+import { JwtService } from '../jwt.service';
 
 
 @Injectable({providedIn: 'root'})

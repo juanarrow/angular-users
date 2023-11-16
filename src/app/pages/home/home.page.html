@@ -1,33 +1,37 @@
-<ion-header >
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
+<ion-content class="offset-header" [fullscreen]="false">
   <ion-button fill="clear" aria-label="New User" (click)="onNewUser()" class="rounde">
     <ion-icon slot="icon-only"  color="primary"  name="add-outline" aria-hidden="true"></ion-icon>
   </ion-button>
   <div class="users-panel">
+    <!-- Lo meteremos en plataforma móvil -->
+    <!--
+    <ion-refresher slot="fixed" #refresherRef disabled="false" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content  
+        pullingIcon="chevron-down-circle-outline"
+        pullingText="Pull to refresh"
+        refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+      </ion-refresher-content>
+      
+    </ion-refresher>
+    -->
     <app-user-info 
       appHighLight
-      *ngFor="let user of ((users.users$ | async) | favs:(favs.favs$ | async));let i = index" 
+      *ngFor="let user of users$ | async;let i = index" 
       [user]="user" 
       (onCardClicked)="onCardClicked(user)" 
-      (onFavClicked)="onFavClicked(user, $event)"
       (onDeleteClicked)="onDeleteClicked(user)"
       >
     </app-user-info>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
   </div>
-  <ion-loading [isOpen]="loading" class="custom-loading"  message="Loading..." ></ion-loading>
-  
-  
+  <!--<ion-loading [isOpen]="loading$ | async" class="custom-loading"  message="Loading..." ></ion-loading>-->
 </ion-content>
+
+
+
+
