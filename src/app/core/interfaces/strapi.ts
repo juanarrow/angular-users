@@ -1,3 +1,8 @@
+export interface StrapiData<T>{
+    id:number,
+    attributes:T
+}
+
 export interface StrapiArrayResponse<T> {
     data: StrapiData<T>[],
     meta: {
@@ -11,16 +16,9 @@ export interface StrapiArrayResponse<T> {
 }
 
 export interface StrapiResponse<T> {
-    data: StrapiData<T>,
-    meta: {
-      pagination?: {
-        page: number,
-        pageSize: number,
-        pageCount: number,
-        total: number
-      }
-    }
+    data: StrapiData<T>
 }
+
 export interface StrapiUser{
     id: number,
     username:string,
@@ -45,26 +43,17 @@ export interface StrapiLoginResponse{
     user:StrapiUser
 }
 
-export interface StrapiRegisterResponse{
-    jwt:string,
-    user:StrapiUser
+export type StrapiRegisterResponse = StrapiLoginResponse;
 
-}
-
-export interface StrapiData<T>{
-    id:number,
-    attributes:T
-}
 export interface StrapiExtendedUser{
     name:string,
     surname:string,
     user_id:number,
+    nickname?:string,
     picture?:{
         data:StrapiData<StrapiMedia>
-    },
-    nickname?:string
+    }
 }
-
 
 export type StrapiUploadResponse = StrapiMedia[]
 
