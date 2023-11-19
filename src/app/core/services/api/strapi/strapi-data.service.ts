@@ -23,7 +23,7 @@ export class StrapiDataService extends DataService{
 
   public get<T>(resource:string):Observable<T>{
     return this.api.get(`/${resource}`).pipe(map((response:StrapiResponse<T>)=>{
-      return response.data.attributes;
+      return {id:response.data.id, ...(response.data.attributes)};
     }));
   }
 

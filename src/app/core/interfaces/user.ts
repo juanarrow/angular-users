@@ -2,7 +2,7 @@ import { PaginatedData } from "./data";
 import { Media } from "./media";
 
 export interface User {
-    id:number,
+    id?:number,
     name:string,
     surname:string,
     nickname?:string

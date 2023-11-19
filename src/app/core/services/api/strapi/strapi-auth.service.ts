@@ -8,7 +8,7 @@ import { AuthService } from '../auth.service';
 import { StrapiArrayResponse, StrapiExtendedUser, StrapiLoginPayload, StrapiLoginResponse, StrapiMe, StrapiRegisterPayload, StrapiRegisterResponse, StrapiResponse, StrapiUser } from '../../../interfaces/strapi';
 import { User } from '../../../interfaces/user';
 
-export class AuthStrapiService extends AuthService{
+export class StrapiAuthService extends AuthService{
 
   constructor(
     private jwtSvc:JwtService,

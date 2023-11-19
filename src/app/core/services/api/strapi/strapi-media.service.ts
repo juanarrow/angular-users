@@ -9,7 +9,7 @@ import { StrapiArrayResponse, StrapiExtendedUser, StrapiLoginPayload, StrapiLogi
 import { User } from '../../../interfaces/user';
 import { MediaService } from '../media.service';
 
-export class MediaStrapiService extends MediaService{
+export class StrapiMediaService extends MediaService{
 
   constructor(
     private apiSvc:ApiService

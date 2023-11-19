@@ -46,6 +46,7 @@ export interface StrapiLoginResponse{
 export type StrapiRegisterResponse = StrapiLoginResponse;
 
 export interface StrapiExtendedUser{
+    id?:number,
     name:string,
     surname:string,
     user_id:number,

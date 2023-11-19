@@ -11,23 +11,48 @@ import { HttpClientProvider } from './core/services/http/http-client.provider';
 import { HttpClientWebProvider } from './core/services/http/http-client-web.provider';
 import { AuthService } from './core/services/api/auth.service';
 import { ApiService } from './core/services/api/api.service';
-import { AuthStrapiService } from './core/services/api/strapi/auth-strapi.service';
+import { StrapiAuthService } from './core/services/api/strapi/strapi-auth.service';
 import { DataService } from './core/services/api/data.service';
 import { JwtService } from './core/services/jwt.service';
 import { StrapiDataService } from './core/services/api/strapi/strapi-data.service';
 import {TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { SharedModule } from './shared/shared.module';
 import { MediaService } from './core/services/api/media.service';
-import { MediaStrapiService } from './core/services/api/strapi/media-strapi.service';
+import { StrapiMediaService } from './core/services/api/strapi/strapi-media.service';
 import { createTranslateLoader } from './core/services/custom-translate.service';
+import { StrapiMappingService } from './core/services/api/strapi/strapi-mapping.service';
+import { MappingService } from './core/services/api/mapping.service';
 
+
+export function MappingServiceFactory(
+  backend:string){
+    switch(backend){
+      case 'Strapi':
+        return new StrapiMappingService();
+      default:
+        throw new Error("Not implemented");
+        
+    }
+}
 export function MediaServiceFactory(
+  backend:string,
   api:ApiService){
-    return new MediaStrapiService(api);
+    switch(backend){
+      case 'Strapi':
+        return new StrapiMediaService(api);
+      default:
+        throw new Error("Not implemented");
+    }
 }
 export function DataServiceFactory(
+  backend:string,
   api:ApiService){
-    return new StrapiDataService(api);
+    switch(backend){
+      case 'Strapi':
+        return new StrapiDataService(api);
+      default:
+        throw new Error("Not implemented");
+    }
 } 
 export function httpProviderFactory(
   http:HttpClient,
@@ -36,10 +61,16 @@ export function httpProviderFactory(
 }
 
 export function AuthServiceFactory(
+  backend:string,
   jwt:JwtService,
   api:ApiService
 ) {
-  return new AuthStrapiService(jwt, api);
+    switch(backend){
+      case 'Strapi':
+        return new StrapiAuthService(jwt, api);
+      default:
+        throw new Error("Not implemented");
+    }
 }
 
 @NgModule({
@@ -59,6 +90,15 @@ export function AuthServiceFactory(
     SharedModule
     ],
   providers: [
+    {
+      provide: 'backend',
+      useValue:'Strapi'
+    },
+    {
+      provide: MappingService,
+      deps: ['backend'],
+      useFactory: MappingServiceFactory
+    },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HttpClientProvider,
@@ -67,17 +107,17 @@ export function AuthServiceFactory(
     },
     {
       provide: AuthService,
-      deps: [JwtService, ApiService],
+      deps: ['backend',JwtService, ApiService],
       useFactory: AuthServiceFactory,  
     },
     {
       provide: DataService,
-      deps: [ApiService],
+      deps: ['backend', ApiService],
       useFactory: DataServiceFactory,  
     },
     {
       provide: MediaService,
-      deps: [ApiService],
+      deps: ['backend', ApiService],
       useFactory: MediaServiceFactory,  
     }
     
