@@ -10,6 +10,7 @@ import { UserDetailComponent } from 'src/app/shared/components/user-detail/user-
 import { Pagination } from 'src/app/core/interfaces/data';
 import { dataURLtoBlob } from 'src/app/core/helpers/blob';
 import { MediaService } from 'src/app/core/services/api/media.service';
+import { AuthService } from 'src/app/core/services/api/auth.service';
 
 
 @Component({
@@ -30,11 +31,13 @@ export class HomePage implements OnInit {
   constructor(
     private router:Router,
     private toast:ToastController,
+    public auth:AuthService,
     public users:UsersService,
     private media:MediaService,
     public favs:FavouritesService,
     private modal:ModalController
   ) {
+    
   }
 
   private loadUsers(page:number=0, refresher:any=null){
@@ -53,7 +56,11 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadUsers();
+    this.auth.isLogged$.subscribe(logged=>{
+      if(logged){
+        this.loadUsers();
+      }
+    })
   }
 
   doRefresh(event:any){

@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
+import { Inject, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy } from '@angular/router';
+import { RouteReuseStrategy, Router } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy, Platform } from '@ionic/angular';
 
@@ -93,6 +93,22 @@ export function AuthServiceFactory(
     {
       provide: 'backend',
       useValue:'Strapi'
+    },
+    {
+      provide: 'home',
+      useValue:'/home'
+    },
+    {
+      provide: 'login',
+      useValue:'/login'
+    },
+    {
+      provide: 'afterLogin',
+      useValue:'/home'
+    },
+    {
+      provide: 'splash',
+      useValue:'/splash'
     },
     {
       provide: MappingService,

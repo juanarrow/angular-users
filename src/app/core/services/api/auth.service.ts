@@ -4,6 +4,7 @@ import { UserCredentials } from '../../interfaces/user-credentials';
 import { UserRegisterInfo } from '../../interfaces/user-register-info';
 import { JwtService } from '../jwt.service';
 import { ApiService } from './api.service';
+import { User } from '../../interfaces/user';
 
 
 
@@ -12,12 +13,14 @@ import { ApiService } from './api.service';
 })
 export abstract class AuthService {
 
-  protected _logged = new BehaviorSubject<boolean>(false);
+  protected _logged = new BehaviorSubject<boolean|null>(null);
   public isLogged$ = this._logged.asObservable();
+  protected _user = new BehaviorSubject<User|null>(null);
+  public user$ = this._user.asObservable();
   
-  public abstract login(credentials:Object):Observable<any>;
+  public abstract login(credentials:Object):Observable<User>;
 
-  public abstract register(info:Object):Observable<any>;
+  public abstract register(info:Object):Observable<User>;
 
   public abstract logout():Observable<void>;
 

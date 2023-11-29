@@ -1,6 +1,7 @@
-import { NgModule, inject } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
+
 
 const routes: Routes = [
   {
@@ -10,12 +11,13 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
+    redirectTo: 'splash',
+    pathMatch: 'full',
   },
   {
     path: 'welcome',
-    loadChildren: () => import('./pages/welcome/welcome.module').then( m => m.WelcomePageModule)
+    loadChildren: () => import('./pages/welcome/welcome.module').then( m => m.WelcomePageModule),
+    canActivate:[AuthGuard]
   },
   {
     path: 'login',
@@ -23,11 +25,13 @@ const routes: Routes = [
   },
   {
     path: 'tasks',
-    loadChildren: () => import('./pages/tasks/tasks.module').then( m => m.TasksPageModule)
+    loadChildren: () => import('./pages/tasks/tasks.module').then( m => m.TasksPageModule),
+    canActivate:[AuthGuard]
   },
   {
     path: 'assignments',
-    loadChildren: () => import('./pages/assignments/assignments.module').then( m => m.AssignmentsPageModule)
+    loadChildren: () => import('./pages/assignments/assignments.module').then( m => m.AssignmentsPageModule),
+    canActivate:[AuthGuard]
   },
   {
     path: 'about',
@@ -35,7 +39,16 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
+    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule),
+    canActivate:[AuthGuard]
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'splash',
+    loadChildren: () => import('./pages/splash/splash.module').then( m => m.SplashPageModule)
   }
 ];
 
