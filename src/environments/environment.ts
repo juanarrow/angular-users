@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiJsonServer: 'http://localhost:3000',
-  apiUrl: 'https://tasks-service-wysp.onrender.com/api',
+  apiUrl: 'http://localhost:1337/api',//'https://tasks-service-wysp.onrender.com/api',
   mapsKey: "AIzaSyD858KjCuS38H4f-soOHBMVQqyZoFAr7k0"
 };
 

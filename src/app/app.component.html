@@ -20,23 +20,27 @@
     </ion-header>
     <ion-content class="ion-padding">
       <ion-list>
+        
         <ion-item (click)="menu.close()" [routerLink]="['/home']" button detail="false"><ion-icon slot="start" name="home"></ion-icon>{{ 'menu.home' | translate}}</ion-item>
         <ion-item (click)="menu.close()" [routerLink]="['/tasks']" button detail="false"><ion-icon slot="start" name="checkbox-outline"></ion-icon>{{ 'menu.tasks' | translate}}</ion-item>
         <ion-item (click)="menu.close()" [routerLink]="['/assignments']" button detail="false"><ion-icon slot="start" name="people-outline"></ion-icon>{{ 'menu.assignments' | translate}}</ion-item>
         <ion-item (click)="menu.close()" [routerLink]="['/profile']" button detail="false"><ion-icon slot="start" name="person-circle-outline"></ion-icon>{{ 'menu.profile' | translate}}</ion-item>
         <ion-item (click)="menu.close()" [routerLink]="['/about']" button detail="false"><ion-icon slot="start" name="information-circle-outline"></ion-icon>{{ 'menu.about' | translate}}</ion-item>
         <ion-item (click)="onSignOut()" button detail="false"><ion-icon slot="start" name="log-out-outline"></ion-icon>{{ 'menu.signout' | translate}}</ion-item>
+        
       </ion-list>
     </ion-content>
   </ion-menu>
   <div class="ion-page" id="main-content">
-    <app-header *ngIf="auth.isLogged$ | async"
+    
+    <app-header *ngIf="(auth.logged$ | async)"
       [nickname]="user?.nickname"
-      [username]="user && user.name + ' ' + user.surname"
+      [username]=" (auth.user$ | async)!.name + ' ' + (auth.user$ | async)!.surname"
       [languages]="['es','en']" 
       [languageSelected]="lang" 
       (onLanguage)="onLang($event)"
       (onSignout)="onSignOut()"></app-header>
+       
     <ion-router-outlet></ion-router-outlet>
   </div>
   

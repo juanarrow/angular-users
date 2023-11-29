@@ -12,13 +12,12 @@ export class ApiService {
     private http:HttpClientProvider,
     private jwt:JwtService
   ) {
-    this.http.get
   }
   
   getHeader(url:string, accept = null, contentType=null){
     var header:any = {};
     if(accept)
-      header['Accept'] = accept;
+      header['Accept'] = accept; 
     if(contentType)
       header['Content-Type']=contentType;
     if(!url.includes('auth'))

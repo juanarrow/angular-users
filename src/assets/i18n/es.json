@@ -8,6 +8,16 @@
         "noAccount":"¿Necesitas una cuenta?",
         "submit":"Acceder"
     },
+    "register":{
+        "email":"Email",
+        "name":"Nombre",
+        "surname":"Apellidos",
+        "nickname":"Apodo",
+        "pwd":"Contraseña",
+        "confirm":"Confirmar contraseña",
+        "login":"Quiero iniciar sesión",
+        "submit":"Registrar"
+    },
     "user-card":{
         "name":"Nombre"
     },

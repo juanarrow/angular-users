@@ -11,7 +11,7 @@ export class JwtService {
   constructor() {
   }
 
-  loadToken(): Observable<JwtToken> {
+  loadToken(): Observable<JwtToken>{
     return new Observable<JwtToken>(observer => {
       Preferences.get({key:'jwtToken'}).then((ret:any) => {
         if (ret['value']) {

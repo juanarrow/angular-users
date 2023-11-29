@@ -15,6 +15,7 @@ import {TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { createTranslateLoader } from '../core/services/custom-translate.service';
+import { RegisterFormComponent } from './components/register-form/register-form.component';
 
 
 
@@ -32,7 +33,8 @@ import { createTranslateLoader } from '../core/services/custom-translate.service
     UserItemComponent,
     UserSelectableComponent,
     LoginFormComponent,
-    HeaderComponent],
+    HeaderComponent,
+    RegisterFormComponent],
   imports: [
     CommonModule,
     IonicModule,
@@ -62,7 +64,8 @@ import { createTranslateLoader } from '../core/services/custom-translate.service
     UserSelectableComponent,
     LoginFormComponent,
     TranslateModule,
-    HeaderComponent
+    HeaderComponent,
+    RegisterFormComponent
   ]
 })
 export class SharedModule { }

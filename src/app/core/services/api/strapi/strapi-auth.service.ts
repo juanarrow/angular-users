@@ -11,79 +11,30 @@ import { User } from '../../../interfaces/user';
 export class StrapiAuthService extends AuthService{
 
   constructor(
-    private jwtSvc:JwtService,
     private apiSvc:ApiService
   ) { 
     super();
-    this.init();
   }
 
-  private init(){
-    this.jwtSvc.loadToken().subscribe(
-      {
-        next:(logged)=>{
-          this._logged.next(logged!='');
-        },
-        error:(err)=>{
-          console.log("No hay token");
-        }
-      }      
-    );
-  }
-
-  public login(credentials:UserCredentials):Observable<void>{
-    return new Observable<void>(obs=>{
+  public login(credentials:UserCredentials):Observable<any>{
       const _credentials:StrapiLoginPayload = {
         identifier:credentials.username,
         password:credentials.password
       };
-      this.apiSvc.post("/auth/local", _credentials).subscribe({
-        next:async (data:StrapiLoginResponse)=>{
-          await lastValueFrom(this.jwtSvc.saveToken(data.jwt));
-          this._logged.next(data && data.jwt!='');
-          obs.next();
-          obs.complete();
-        },
-        error:err=>{
-          obs.error(err);
-        }
-      });
-    });
+      return this.apiSvc.post("/auth/local", _credentials);
   }
 
-  logout():Observable<void>{
-    return this.jwtSvc.destroyToken().pipe(map(_=>{
-      this._logged.next(false);
-      return;
-    }));
-  }
-
-  register(info:UserRegisterInfo):Observable<void>{
-    return new Observable<void>(obs=>{
+  public register(info:UserRegisterInfo):Observable<any>{
       const _info:StrapiRegisterPayload = {
         email:info.email,
         username:info.nickname,
         password:info.password
       }
-      this.apiSvc.post("/auth/local/register", info).subscribe({
-        next:async (data:StrapiRegisterResponse)=>{
-          let connected = data && data.jwt!='';
-          this._logged.next(connected);
-          await lastValueFrom(this.jwtSvc.saveToken(data.jwt));
-          const _extended_user:StrapiExtendedUser= {
-            name:info.name,
-            surname:info.surname,
-            user_id:data.user.id
-          }
-          await lastValueFrom(this.apiSvc.post("/extended_user", _extended_user)).catch;
-          obs.next();
-          obs.complete();
-        },
-        error:err=>{
-          obs.error(err);
-        }
-      });
-    });
+      return this.apiSvc.post("/auth/local/register", _info);
+  }
+
+  public postRegister(info:StrapiExtendedUser){
+    return this.apiSvc.post("/extended-users", {data:info});
   }
 
   public me():Observable<User>{

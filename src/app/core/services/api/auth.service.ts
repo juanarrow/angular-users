@@ -15,11 +15,11 @@ export abstract class AuthService {
   protected _logged = new BehaviorSubject<boolean>(false);
   public isLogged$ = this._logged.asObservable();
   
-  public abstract login(credentials:Object):Observable<any>;
+  public abstract login(credentials:any):Observable<any>;
 
-  public abstract register(info:Object):Observable<any>;
+  public abstract register(info:any):Observable<any>;
 
-  public abstract logout():Observable<void>;
+  public abstract postRegister(info:any):Observable<any>;
 
   public abstract me():Observable<any>;
 }

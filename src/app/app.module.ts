@@ -22,6 +22,10 @@ import { StrapiMediaService } from './core/services/api/strapi/strapi-media.serv
 import { createTranslateLoader } from './core/services/custom-translate.service';
 import { StrapiMappingService } from './core/services/api/strapi/strapi-mapping.service';
 import { MappingService } from './core/services/api/mapping.service';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { environment } from 'src/environments/environment';
+import { AuthModule } from './core/+state/auth/auth.module';
 
 
 export function MappingServiceFactory(
@@ -62,12 +66,11 @@ export function httpProviderFactory(
 
 export function AuthServiceFactory(
   backend:string,
-  jwt:JwtService,
   api:ApiService
 ) {
     switch(backend){
       case 'Strapi':
-        return new StrapiAuthService(jwt, api);
+        return new StrapiAuthService(api);
       default:
         throw new Error("Not implemented");
     }
@@ -79,7 +82,9 @@ export function AuthServiceFactory(
     BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule,
+    
     HttpClientModule,
+    
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -87,13 +92,23 @@ export function AuthServiceFactory(
         deps: [HttpClient]
       }
     }),
-    SharedModule
+    
+    SharedModule,
+    
+    StoreModule.forRoot({}, {
+      metaReducers: []
+    }),
+    EffectsModule.forRoot([]),
+    AuthModule
+    
     ],
   providers: [
+    
     {
       provide: 'backend',
       useValue:'Strapi'
     },
+    
     {
       provide: MappingService,
       deps: ['backend'],
@@ -107,7 +122,7 @@ export function AuthServiceFactory(
     },
     {
       provide: AuthService,
-      deps: ['backend',JwtService, ApiService],
+      deps: ['backend', ApiService],
       useFactory: AuthServiceFactory,  
     },
     {
@@ -120,6 +135,7 @@ export function AuthServiceFactory(
       deps: ['backend', ApiService],
       useFactory: MediaServiceFactory,  
     }
+    
     
   ],
   bootstrap: [AppComponent],

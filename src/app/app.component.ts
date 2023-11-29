@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CustomTranslateService } from './core/services/custom-translate.service';
 import { Subscription } from 'rxjs';
 import { User } from './core/interfaces/user';
+import { AuthFacade } from './core/+state/auth/auth.facade';
 
 @Component({
   selector: 'app-root',
@@ -14,35 +15,23 @@ export class AppComponent{
 
   lang:string = "es";
   user:User|undefined = undefined;
+  
   constructor(
     public translate:CustomTranslateService,
-    public auth:AuthService,
+    public auth:AuthFacade,
     private router:Router
   ) {
-    this.auth.isLogged$.subscribe(logged=>{
-      
-      if(logged){
-        this.auth.me().subscribe(data=>{
-          this.user = data;
-        });
-        this.router.navigate(['/home']);
-      }
-    });
+    this.auth.init();
     this.translate.use(this.lang);
   }
  
   onLang(lang:string){
     this.lang = lang;
     this.translate.use(this.lang);
-
-
     return false;    
-  
   }
   onSignOut(){
-    this.auth.logout().subscribe(_=>{
-      this.router.navigate(['/login']);
-      this.user = undefined;
-    });
+    this.auth.logout('/login');
   }
+  
 }
