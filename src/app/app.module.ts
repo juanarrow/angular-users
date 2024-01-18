@@ -24,6 +24,7 @@ import { StrapiMappingService } from './core/services/api/strapi/strapi-mapping.
 import { MappingService } from './core/services/api/mapping.service';
 import { FirebaseService } from './core/services/firebase/firebase.service';
 import { FirebaseAuthService } from './core/services/api/firebase/firebase-auth.service';
+import { environment } from 'src/environments/environment';
 
 
 export function MappingServiceFactory(
@@ -97,15 +98,7 @@ export function AuthServiceFactory(
   providers: [
     {
       provide: 'firebase-config',
-      useValue:{
-        apiKey: "AIzaSyAWPFIVOBkzF7S6QKzvhwaPFtYMjMtrlII",
-        authDomain: "tasks-43097.firebaseapp.com",
-        projectId: "tasks-43097",
-        storageBucket: "tasks-43097.appspot.com",
-        messagingSenderId: "943257446031",
-        appId: "1:943257446031:web:879146721db4da919b72fa",
-        measurementId: "G-K6BS4FB7D8"
-      }
+      useValue:environment.firebase
     },
     {
       provide: 'backend',
