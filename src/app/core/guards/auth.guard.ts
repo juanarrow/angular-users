@@ -21,9 +21,7 @@ export class AuthGuard implements CanActivate {
         redirectUrl = route.url.reduce((p,v)=>p+v.path+'/',"/");
       return this.auth.isLogged$.pipe(map(logged=>{
 
-        if(logged==null)
-          this.router.navigate([this.splashUrl]);
-        else if(!logged)
+        if(!logged)
           this.router.navigate([this.loginUrl],{queryParams:{redirectUrl:redirectUrl}})
         return logged==null || logged==false?false:true;
       }));

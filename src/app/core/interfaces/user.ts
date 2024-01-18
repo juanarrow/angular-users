@@ -7,6 +7,7 @@ export interface User {
     surname:string,
     nickname?:string
     picture?:Media|null,
+    uuid?:string
 }
 
 export type PaginatedUsers = PaginatedData<User>;

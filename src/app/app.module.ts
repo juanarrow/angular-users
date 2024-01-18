@@ -22,6 +22,8 @@ import { StrapiMediaService } from './core/services/api/strapi/strapi-media.serv
 import { createTranslateLoader } from './core/services/custom-translate.service';
 import { StrapiMappingService } from './core/services/api/strapi/strapi-mapping.service';
 import { MappingService } from './core/services/api/mapping.service';
+import { FirebaseService } from './core/services/firebase/firebase.service';
+import { FirebaseAuthService } from './core/services/api/firebase/firebase-auth.service';
 
 
 export function MappingServiceFactory(
@@ -63,11 +65,14 @@ export function httpProviderFactory(
 export function AuthServiceFactory(
   backend:string,
   jwt:JwtService,
-  api:ApiService
+  api:ApiService,
+  firebase:FirebaseService
 ) {
     switch(backend){
       case 'Strapi':
         return new StrapiAuthService(jwt, api);
+      case 'Firebase':
+        return new FirebaseAuthService(firebase);
       default:
         throw new Error("Not implemented");
     }
@@ -91,8 +96,20 @@ export function AuthServiceFactory(
     ],
   providers: [
     {
+      provide: 'firebase-config',
+      useValue:{
+        apiKey: "AIzaSyAWPFIVOBkzF7S6QKzvhwaPFtYMjMtrlII",
+        authDomain: "tasks-43097.firebaseapp.com",
+        projectId: "tasks-43097",
+        storageBucket: "tasks-43097.appspot.com",
+        messagingSenderId: "943257446031",
+        appId: "1:943257446031:web:879146721db4da919b72fa",
+        measurementId: "G-K6BS4FB7D8"
+      }
+    },
+    {
       provide: 'backend',
-      useValue:'Strapi'
+      useValue:'Firebase'
     },
     {
       provide: 'home',
@@ -123,7 +140,7 @@ export function AuthServiceFactory(
     },
     {
       provide: AuthService,
-      deps: ['backend',JwtService, ApiService],
+      deps: ['backend',JwtService, ApiService, FirebaseService],
       useFactory: AuthServiceFactory,  
     },
     {
