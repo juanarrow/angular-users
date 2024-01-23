@@ -37,10 +37,12 @@ export class FirebaseAuthService extends AuthService{
         if(!credentials || !credentials.user || !credentials.user.user || !credentials.user.user.uid)
           subscr.error('Cannot register');
         if(credentials){
-          this.postRegister(info).subscribe(data=>{
-            this._user.next(data);
+          var _info:User = {...info};
+          _info.uuid = this.firebaseSvc.user?.uid;
+          this.postRegister(_info).subscribe(data=>{
+            this._user.next(_info);
             this._logged.next(true);
-            subscr.next(data);
+            subscr.next(_info);
             subscr.complete();
           });
         }

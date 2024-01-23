@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserRegisterInfo } from 'src/app/core/interfaces/user-register-info';
 import { AuthService } from 'src/app/core/services/api/auth.service';
 
@@ -13,7 +13,8 @@ export class RegisterPage implements OnInit {
   redirectUrl:string | null = 'home';
   constructor(
     private route:ActivatedRoute,
-    private auth:AuthService
+    private auth:AuthService,
+    private router:Router
   ) { }
 
   ngOnInit() {
@@ -25,7 +26,9 @@ export class RegisterPage implements OnInit {
     delete _data.confirm;
     
     this.auth.register(_data).subscribe({
-      next:(data)=>{},
+      next:(data)=>{
+        this.router.navigate([this.redirectUrl]);
+      },
       error:(err)=>{}
     });
   }
