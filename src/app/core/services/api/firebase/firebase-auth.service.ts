@@ -11,6 +11,20 @@ export class FirebaseAuthService extends AuthService{
     private firebaseSvc:FirebaseService
   ) { 
     super();
+
+    this.firebaseSvc.isLogged$.subscribe(logged=>{
+      if(logged){
+        this.me().subscribe({
+          next:data=>{
+            this._user.next(data);
+            this._logged.next(true);
+          },
+          error:err=>{
+            console.log(err);
+          }
+        });
+      }
+    })
   }
 
   public login(credentials:UserCredentials):Observable<any>{
