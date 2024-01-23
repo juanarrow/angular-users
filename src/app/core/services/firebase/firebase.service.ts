@@ -38,7 +38,7 @@ export class FirebaseService {
     this.init(config);
   }
   
-  public async init(firebaseConfig:any) {
+  public init(firebaseConfig:any) {
       // Initialize Firebase
     this._app = initializeApp(firebaseConfig);
     this._db = getFirestore(this._app);
@@ -212,8 +212,8 @@ export class FirebaseService {
       }, error=>{});
   }
   
-  public async signOut(signInAnon:boolean=false):Promise<void> {
-    new Promise<void>(async (resolve, reject)=>{
+  public signOut(signInAnon:boolean=false):Promise<void> {
+    return new Promise<void>(async (resolve, reject)=>{
         if(this._auth)
           try {
               await this._auth.signOut();
@@ -246,7 +246,7 @@ export class FirebaseService {
     
   }
 
-  public async connectAnonymously():Promise<void>{
+  public connectAnonymously():Promise<void>{
     const response = new Promise<void>(async (resolve, reject) => {
         if(!this._auth)
             resolve();
@@ -263,7 +263,7 @@ export class FirebaseService {
     return response;
   }
 
-  public async createUserWithEmailAndPassword(email:string, password:string):Promise<FirebaseUserCredential | null>{
+  public createUserWithEmailAndPassword(email:string, password:string):Promise<FirebaseUserCredential | null>{
     return new Promise(async(resolve,reject)=>{
         if(!this._auth)
             resolve(null);
@@ -293,7 +293,7 @@ export class FirebaseService {
     
   }
   
-  public async connectUserWithEmailAndPassword(email: string, password: string):Promise<FirebaseUserCredential | null> {
+  public connectUserWithEmailAndPassword(email: string, password: string):Promise<FirebaseUserCredential | null> {
     return new Promise<FirebaseUserCredential | null>(async (resolve, reject)=>{
         if(!this._auth)
             resolve(null);

@@ -24,6 +24,10 @@ export class FirebaseAuthService extends AuthService{
           }
         });
       }
+      else{
+        this._logged.next(false);
+        this._user.next(null);
+      }
     })
   }
 
