@@ -125,7 +125,7 @@ export function AuthServiceFactory(
       deps: ['backend'],
       useFactory: MappingServiceFactory
     },
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+   
     {
       provide: HttpClientProvider,
       deps: [HttpClient, Platform],
@@ -145,7 +145,9 @@ export function AuthServiceFactory(
       provide: MediaService,
       deps: ['backend', ApiService],
       useFactory: MediaServiceFactory,  
-    }
+    },
+    
+     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     
   ],
   bootstrap: [AppComponent],
