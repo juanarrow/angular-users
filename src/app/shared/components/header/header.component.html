@@ -3,7 +3,11 @@
     <ion-buttons slot="start">
       <ion-menu-button color="primary"></ion-menu-button>
     </ion-buttons>
-    <div slot="end" class="user-info">
+    <div slot="end" id="user-trigger" class="user-info">
+      <ion-icon *ngIf="!picture" slot="end" size="large" color="primary" name="person-circle-outline"></ion-icon>
+      <ion-thumbnail *ngIf="picture" >
+        <img src="{{picture.url_thumbnail}}" />
+      </ion-thumbnail>
       <ion-label>
         <p class="username">
           {{username}}
@@ -12,10 +16,11 @@
           {{nickname}}
         </p>
       </ion-label>
-      <ion-icon id="user-trigger" slot="end" size="large" color="primary" name="person-circle-outline"></ion-icon>
+      
+      
     </div>
     <ion-buttons slot="end">
-      <ion-button id="language-trigger" shape="round" color="primary" fill="outline">{{languageSelected | uppercase}}</ion-button>
+      <ion-button style="margin-left:20px" id="language-trigger" shape="round" color="primary" fill="outline">{{languageSelected | uppercase}}</ion-button>
     </ion-buttons>
     
   </ion-toolbar>

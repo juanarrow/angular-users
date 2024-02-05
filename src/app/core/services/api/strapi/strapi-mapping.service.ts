@@ -2,9 +2,34 @@ import { Inject, Injectable } from '@angular/core';
 import { PaginatedData } from '../../../interfaces/data';
 import { StrapiExtendedUser, StrapiResponse } from '../../../interfaces/strapi';
 import { User } from '../../../interfaces/user';
+import { Task } from '../../../interfaces/task';
 import { MappingService } from '../mapping.service';
 
 export class StrapiMappingService extends MappingService{
+  public override queryTasksUrl(): string {
+    throw new Error('Method not implemented.');
+  }
+  public override getTaskUrl(id: number): string;
+  public override getTaskUrl(id: string): string;
+  public override getTaskUrl(id: unknown): string {
+    throw new Error('Method not implemented.');
+  }
+  public override updateTaskUrl(id: string): string;
+  public override updateTaskUrl(id: number): string;
+  public override updateTaskUrl(id: unknown): string{
+    throw new Error('Method not implemented.');
+  }
+  public override deleteTaskUrl(id: number): string;
+  public override deleteTaskUrl(id: string): string;
+  public override deleteTaskUrl(id: unknown): string {
+    throw new Error('Method not implemented.');
+  }
+  public override mapTasks(data: PaginatedData<any>): PaginatedData<Task> {
+    throw new Error('Method not implemented.');
+  }
+  public override mapTask(data: any): Task {
+    throw new Error('Method not implemented.');
+  }
 
   constructor() {
     super();
@@ -41,7 +66,7 @@ export class StrapiMappingService extends MappingService{
                 url_small: user.picture.data.attributes.formats.small?.url,
                 url_medium:user.picture.data.attributes.formats.medium?.url,
                 url_thumbnail:user.picture.data.attributes.formats.thumbnail?.url,
-              }:null
+              }:undefined
             };
           }),
           pagination:data.pagination
@@ -59,7 +84,7 @@ export class StrapiMappingService extends MappingService{
         url_small: data.picture.data.attributes.formats.small?.url,
         url_medium:data.picture.data.attributes.formats.medium?.url,
         url_thumbnail:data.picture.data.attributes.formats.thumbnail?.url,
-      }:null
+      }:undefined
     };
   }
 }

@@ -44,6 +44,10 @@ export class AppComponent{
     });
   }
 
+  onProfile(){
+    this.router.navigate(['profile']);
+  }
+
   routeInclude(path:string):boolean{
     return this.router.url.includes(path);
   }

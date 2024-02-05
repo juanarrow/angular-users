@@ -33,10 +33,13 @@
     <app-header *ngIf="(auth.isLogged$ | async) && (auth.user$ | async)"
       [nickname]="(auth.user$ | async)!.nickname"
       [username]="(auth.user$ | async)!.name + ' ' + (auth.user$ | async)!.surname"
+      [picture]="(auth.user$ | async)!.picture"
       [languages]="['es','en']" 
       [languageSelected]="lang" 
       (onLanguage)="onLang($event)"
-      (onSignout)="onSignOut(menu)"></app-header>
+      (onSignout)="onSignOut(menu)"
+      (onProfile)="onProfile()"
+      ></app-header>
     <ion-router-outlet></ion-router-outlet>
   </div>
   

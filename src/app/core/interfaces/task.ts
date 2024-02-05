@@ -1,16 +1,14 @@
 import { PaginatedData } from "./data";
 import { Media } from "./media";
 
-export interface User {
+export interface Task {
     id?:number,
     name:string,
-    surname:string,
-    nickname?:string
     picture?:Media|undefined,
     uuid?:string
 }
 
-export type PaginatedUsers = PaginatedData<User>;
+export type PaginatedTasks = PaginatedData<Task>;
 
 
 

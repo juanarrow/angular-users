@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="primary" fill="clear" (click)="onCancel()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      {{(mode=='New'?'Tarea nuevo':'Editar tarea')}}
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="mode=='Edit'" color="primary" fill="clear" (click)="onDelete()">
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  
+</ion-header>
+<ion-content class="ion-padding">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
+    
+    <app-picture-selectable formControlName="picture"></app-picture-selectable>
+    <ion-item>
+      <ion-input label="Nombre:" labelPlacement="start" formControlName="name" type="text"></ion-input>
+    </ion-item>
+  </form>
+
+  
+</ion-content>
+<ion-footer>
+  <ion-button type="submit" [disabled]="!form.valid || !form.dirty" class="ion-padding" expand="full" (click)="onSubmit()">{{(mode=='New'?'Crear':'Guardar')}}</ion-button>
+</ion-footer>

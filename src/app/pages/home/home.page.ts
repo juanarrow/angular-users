@@ -101,7 +101,7 @@ export class HomePage implements OnInit {
         case 'ok':{
           if(info.data.picture){
             dataURLtoBlob(info.data.picture,(blob:Blob)=>{
-              this.media.upload(blob).subscribe((media:number[])=>{
+              this.media.upload(blob).subscribe((media:any[])=>{
                 info.data.picture = media[0];
                 let _user = {id:user.id, ...info.data};
                 this.users.updateUser(_user).subscribe(async user=>{
@@ -185,7 +185,7 @@ export class HomePage implements OnInit {
         case 'ok':{
           if(info.data.picture){
             dataURLtoBlob(info.data.picture,(blob:Blob)=>{
-              this.media.upload(blob).subscribe((media:number[])=>{
+              this.media.upload(blob).subscribe((media:any[])=>{
                 info.data.picture = media[0];
                 this.users.addUser(info.data).subscribe(async user=>{
                     this.loadUsers();

@@ -1,0 +1,28 @@
+
+<ion-card appHighLight button (click)="onCardClick()">
+  <ion-button class="close-button" fill="clear" aria-label="Delete" (click)="onDeleteClick($event)">
+    <ion-icon slot="icon-only"  color="primary" name="trash" aria-hidden="true"></ion-icon>
+  </ion-button>
+  <ion-card-header>
+    <div style="display:flex;margin:10px;align-items:flex-end ">
+      
+      <ion-avatar>
+        <img  *ngIf="!task || !task.picture" alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+        <img *ngIf="task && task.picture" alt="Silhouette of a person's head" [src]="task.picture.url_small" />
+      </ion-avatar>
+      
+      <div class="ion-margin-start task-name" color="tertiary" >{{task?.name | titlecase}}</div>
+      
+    </div>
+    
+    
+  </ion-card-header>
+  <ion-card-content>
+    <ion-item>
+      <ion-label>
+        <h3>{{'task-card.name' | translate}}</h3>
+        <ion-text color="medium" class="ion-margin-start">{{task?.name}}</ion-text>
+      </ion-label>
+    </ion-item>
+  </ion-card-content>
+</ion-card>

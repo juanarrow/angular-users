@@ -16,6 +16,10 @@ import { HttpClient } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { createTranslateLoader } from '../core/services/custom-translate.service';
 import { RegisterFormComponent } from './components/register-form/register-form.component';
+import { ProfileDetailComponent } from './components/profile-detail/profile-detail.component';
+import { TaskInfoComponent } from './components/task-info/task-info.component';
+import { TaskDetailComponent } from './components/task-detail/task-detail.component';
+import { TaskItemComponent } from './components/task-item/task-item.component';
 
 
 
@@ -29,12 +33,16 @@ import { RegisterFormComponent } from './components/register-form/register-form.
     //Components
     UserInfoComponent,
     UserDetailComponent,
-    PictureSelectableComponent,
     UserItemComponent,
+    TaskInfoComponent,
+    TaskDetailComponent,
+    TaskItemComponent,
+    PictureSelectableComponent,
     UserSelectableComponent,
     LoginFormComponent,
     HeaderComponent,
-    RegisterFormComponent],
+    RegisterFormComponent,
+    ProfileDetailComponent],
   imports: [
     CommonModule,
     IonicModule,
@@ -61,11 +69,16 @@ import { RegisterFormComponent } from './components/register-form/register-form.
     UserInfoComponent,
     UserDetailComponent,
     UserItemComponent,
+    TaskInfoComponent,
+    TaskDetailComponent,
+    TaskItemComponent,
     UserSelectableComponent,
     LoginFormComponent,
     TranslateModule,
     HeaderComponent,
-    RegisterFormComponent
+    RegisterFormComponent,
+    PictureSelectableComponent,
+    ProfileDetailComponent
   ]
 })
 export class SharedModule { }

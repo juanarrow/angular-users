@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { PaginatedData } from '../../../interfaces/data';
 import { StrapiExtendedUser, StrapiResponse } from '../../../interfaces/strapi';
 import { User } from '../../../interfaces/user';
+import { Task } from '../../../interfaces/task';
 import { MappingService } from '../mapping.service';
 
 export class FirebaseMappingService extends MappingService{
@@ -11,55 +12,81 @@ export class FirebaseMappingService extends MappingService{
    }
   
   public queryUsersUrl():string{
-    return 'extended-users?populate=picture&sort=id';
-    
+    return `users`;
   }
 
-  public getUserUrl(id:number):string{
-    return `extended-users/${id}/?populate=picture&sort=id`;
+  public override getUserUrl(id: number): string;
+  public override getUserUrl(id: string): string;
+  public override getUserUrl(id: unknown): string {
+    return `users/${id}`;
   }
 
-  public updateUserUrl(id:number):string{
-    return `extended-users/${id}`;
+  public override updateUserUrl(id: number): string;
+  public override updateUserUrl(id: string): string;
+  public override updateUserUrl(id: unknown): string {
+    return `users/${id}`;
   }
 
-  public deleteUserUrl(id:number):string{
-    return `extended-users/${id}`;
+  public override deleteUserUrl(id: number): string;
+  public override deleteUserUrl(id: string): string;
+  public override deleteUserUrl(id: unknown): string {
+    return `users/${id}`;
   }
+
   public mapUsers(data:PaginatedData<any>):PaginatedData<User>{
-    const strapi_data:PaginatedData<StrapiExtendedUser> = {...data};
-        return {
-          data:strapi_data.data.map(user=>{
-            return {
-              id:user.id,
-              name:user.name,
-              surname:user.surname,
-              nickname:user.nickname,
-              picture:user.picture?.data?{
-                id: user.picture.data.id,
-                url_large: user.picture.data.attributes.formats.large?.url,
-                url_small: user.picture.data.attributes.formats.small?.url,
-                url_medium:user.picture.data.attributes.formats.medium?.url,
-                url_thumbnail:user.picture.data.attributes.formats.thumbnail?.url,
-              }:null
-            };
-          }),
-          pagination:data.pagination
-        };
-  }
-  public mapUser(data:StrapiExtendedUser):User{
     return {
-      id:data.id,
-      name:data.name,
-      surname:data.surname,
-      nickname:data.nickname,
-      picture:data.picture?.data?{
-        id: data.picture.data.id,
-        url_large: data.picture.data.attributes.formats.large?.url,
-        url_small: data.picture.data.attributes.formats.small?.url,
-        url_medium:data.picture.data.attributes.formats.medium?.url,
-        url_thumbnail:data.picture.data.attributes.formats.thumbnail?.url,
-      }:null
+      data:data.data,
+      pagination:{
+        page:0,
+        pageSize:data.data.length,
+        pageCount:1,
+        total:data.data.length
+      }
     };
+  }
+
+  public mapUser(data:User):User{
+    return data;
+  }
+
+  public override queryTasksUrl(): string {
+    return 'tasks';
+  }
+
+  public override getTaskUrl(id: number): string;
+  public override getTaskUrl(id: string): string;
+  public override getTaskUrl(id: unknown): string {
+    if((typeof id) == 'number' || (typeof id) =='number')
+      throw new Error('Method not implemented.');
+    return `tasks/${id}`;
+
+  }
+
+  public override updateTaskUrl(id: number): string;
+  public override updateTaskUrl(id: string): string;
+  public override updateTaskUrl(id: unknown): string {
+    return `tasks/${id}`;
+  }
+
+  public override deleteTaskUrl(id: number): string;
+  public override deleteTaskUrl(id: string): string;
+  public override deleteTaskUrl(id: unknown): string {
+    return `tasks/${id}`;
+  }
+
+  public override mapTasks(data: PaginatedData<any>): PaginatedData<Task> {
+    return {
+      data:data.data,
+      pagination:{
+        page:0,
+        pageSize:data.data.length,
+        pageCount:1,
+        total:data.data.length
+      }
+    }
+  }
+
+  public override mapTask(data: any): Task {
+    return data;
   }
 }

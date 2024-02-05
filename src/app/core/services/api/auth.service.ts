@@ -25,4 +25,8 @@ export abstract class AuthService {
   public abstract logout():Observable<void>;
 
   public abstract me():Observable<any>;
+
+  public abstract getID():String|number|undefined;
+
+  public abstract updateUser(user:User):Observable<any>;
 }

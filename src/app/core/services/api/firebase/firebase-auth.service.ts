@@ -1,4 +1,4 @@
-import { Observable, from, map } from 'rxjs';
+import { Observable, from, map, of, switchMap, tap } from 'rxjs';
 import { UserCredentials } from '../../../interfaces/user-credentials';
 import { UserRegisterInfo } from '../../../interfaces/user-register-info';
 import { User } from '../../../interfaces/user';
@@ -6,7 +6,7 @@ import { AuthService } from '../auth.service';
 import { FirebaseService, FirebaseUserCredential } from '../../firebase/firebase.service';
 
 export class FirebaseAuthService extends AuthService{
-
+  
   constructor(
     private firebaseSvc:FirebaseService
   ) { 
@@ -86,7 +86,13 @@ export class FirebaseAuthService extends AuthService{
           name:data.data['name'],
           surname:data.data['surname'],
           nickname:data.data['nickname'],
-          picture:data.data['picture']??"",
+          picture:data.data['picture']?{
+            id: 0,
+            url_large: data.data['picture']['url_large'],
+            url_small: data.data['picture']['url_small'],
+            url_medium:data.data['picture']['url_medium'],
+            url_thumbnail:data.data['picture']['url_thumbnail'],
+          }:undefined,
           uuid:data.id
         }
     }));
@@ -97,4 +103,15 @@ export class FirebaseAuthService extends AuthService{
   public logout(): Observable<any> {
     return from(this.firebaseSvc.signOut(false));
   }
+
+  public override getID(): number | String | undefined {
+    return this._user?.value?.uuid;
+  }
+
+  public override updateUser(user:User): Observable<User> {
+    return from(this.firebaseSvc.updateDocument('users', this._user!.value!.uuid!,user)).pipe(switchMap(_=>this.me().pipe(tap(data=>{
+      this._user.next(data);
+    }))));
+  }
+  
 }

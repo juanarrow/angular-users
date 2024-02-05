@@ -1,47 +1,61 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable, map, of } from 'rxjs';
+import { Observable, from, map, of, switchMap } from 'rxjs';
 import { StrapiArrayResponse, StrapiResponse } from '../../../interfaces/strapi';
 import { ApiService } from '../api.service';
 import { DataService } from '../data.service';
 import { PaginatedData } from '../../../interfaces/data';
+import { FirebaseService } from '../../firebase/firebase.service';
 
 export class FirebaseDataService extends DataService{
 
   constructor(
-    protected api:ApiService
+    protected firebase:FirebaseService
   ){
     super();
   }
 
   public query<T>(resource:string, params:any):Observable<PaginatedData<T>>{
-    return this.api.get(`/${resource}`, params).pipe(map((response:StrapiArrayResponse<T>)=>{
+    return from(this.firebase.getDocuments(resource)).pipe(map(data=>{
       return {
-        data: response.data.map(data=>{return {...(data.attributes), id:data.id};}), 
-        pagination: response.meta.pagination!};
+        data:data.map(doc=>{
+          return {
+            id:0,
+            uuid: doc.id,
+            ...doc.data
+          } as T
+        }),
+        pagination:{
+          page:0,
+          pageSize:data.length,
+          pageCount:1,
+          total:data.length
+        }
+      }
     }));
   }
 
   public get<T>(resource:string):Observable<T>{
-    return this.api.get(`/${resource}`).pipe(map((response:StrapiResponse<T>)=>{
-      return {id:response.data.id, ...(response.data.attributes)};
+    return from(this.firebase.getDocument(resource.split('/')[0], resource.split('/')[1])).pipe(map(doc=>{
+      return {
+        id: 0,
+        uuid: doc.id,
+        ...doc.data
+      } as T;
     }));
   }
 
   public post<T>(resource:string, data:any):Observable<T>{
-    return this.api.post(`/${resource}`, {data:data} as Object).pipe(map((response:StrapiResponse<T>)=>{
-      return {id:response.data.id, ...response.data.attributes};
-    }));
+    return from(this.firebase.createDocument(resource, data)).pipe(switchMap(doc=>this.get<T>(resource+"/"+doc)));
   }
 
   public put<T>(resource:string, data:any):Observable<T>{
-    return this.api.put(`/${resource}`, {data:data}).pipe(map((response:StrapiResponse<T>)=>{
-      return {id:response.data.id, ...response.data.attributes};
-    }));
+    return from(this.firebase.updateDocument(resource.split("/")[0],resource.split("/")[1], data)).pipe(switchMap(doc=>this.get<T>(resource)));
   }
 
   public delete<T>(resource:string):Observable<T>{
-    return this.api.delete(`/${resource}`).pipe(map((response:StrapiResponse<T>)=>{
-      return {id:response.data.id, ...response.data.attributes};
+    return this.get<T>(resource).pipe(switchMap(doc=>{
+      return from(this.firebase.deleteDocument(resource.split("/")[0],resource.split("/")[1])).pipe(map(_=>doc));
     }));
+    
   }
 }

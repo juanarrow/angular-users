@@ -1,13 +1,21 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>tasks</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">tasks</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="offset-header" [fullscreen]="false">
+  <ion-button fill="clear" aria-label="New User" (click)="onNewTask()" >
+    <ion-icon slot="icon-only"  color="primary"  name="add-outline" aria-hidden="true"></ion-icon>
+  </ion-button>
+  <div class="users-panel">
+    <app-task-info 
+      appHighLight
+      *ngFor="let task of tasks$ | async;let i = index" 
+      [task]="task" 
+      (onCardClicked)="onCardClicked(task)" 
+      (onDeleteClicked)="onDeleteClicked(task)"
+      >
+    </app-task-info>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+  </div>
 </ion-content>
+

@@ -17,7 +17,7 @@ export class StrapiMediaService extends MediaService{
     super();
   }
 
-  public upload(blob:Blob):Observable<number[]>{
+  public upload(blob:Blob):Observable<any[]>{
     const formData = new FormData();
     formData.append('files', blob);
     return this.apiSvc.post('/upload', formData).pipe(map((response:StrapiUploadResponse)=>{

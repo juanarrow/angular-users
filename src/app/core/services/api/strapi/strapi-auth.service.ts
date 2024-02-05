@@ -10,6 +10,7 @@ import { User } from '../../../interfaces/user';
 import { Router } from '@angular/router';
 
 export class StrapiAuthService extends AuthService{
+  
 
   constructor(
     private jwtSvc:JwtService,
@@ -120,4 +121,12 @@ export class StrapiAuthService extends AuthService{
     });
     
   }
+
+  public override getID(): number | String | undefined {
+    return this._user?.value?.id;
+  }
+
+  public override updateUser(): Observable<any> {
+    throw new Error('Method not implemented.');
+  }  
 }
